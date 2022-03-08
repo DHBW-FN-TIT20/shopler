@@ -1,4 +1,5 @@
-import { Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 export default function SignIn() {
@@ -33,7 +34,7 @@ export default function SignIn() {
               id="email"
               label="Username"
               name="email"
-              autoComplete="email"
+              autoComplete=""
               autoFocus
             />
             <TextField
@@ -47,8 +48,8 @@ export default function SignIn() {
               autoComplete="current-password"
             />
             <Typography>
-              <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+              <Link to={{pathname: "/signup"}}>
+                  Don't have an account? Sign Up
               </Link>
             </Typography>
             <Button
@@ -58,7 +59,6 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-
           </Box>
         </Box>
       </Container>

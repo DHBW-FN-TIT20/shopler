@@ -1,7 +1,8 @@
-import { Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
-export default function SignIn() {
+export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,7 +24,7 @@ export default function SignIn() {
           }}
         >
           <Typography component="h1" variant="h2">
-            Sign in
+            Sign up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -47,8 +48,8 @@ export default function SignIn() {
               autoComplete="new-password"
             />
             <Typography>
-              <Link href="#" variant="body2">
-                  {"Already have an accoung? Sign In here"}
+              <Link to={{pathname: "/signin"}} variant="body2">
+                  Already have an accoung? Sign In here
               </Link>
             </Typography>
             <Button
@@ -58,7 +59,6 @@ export default function SignIn() {
             >
               Sign Up
             </Button>
-
           </Box>
         </Box>
       </Container>
