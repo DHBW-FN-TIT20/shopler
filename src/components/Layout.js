@@ -19,7 +19,7 @@ export default function Layout() {
 
   return (
     <Box>
-      <Navigation smallScreen={isGreaterThanSmallBreakpoint} />
+      <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
       <Box
         sx={{
