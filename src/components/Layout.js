@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import "./Layout.css";
 import Shop from "./Shop";
 import SignIn from "./SignIn";
 import NewArticle from "./NewArticle";
