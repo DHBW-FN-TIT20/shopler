@@ -4,31 +4,26 @@ const {
 const {
     database
 } = require('../bin/db/connect');
+const {
+    User
+} = require('./users');
 
-const User = database.define('user', {
-    user_id: {
+
+new ShoppingList = database.define('shopping_list', {
+    shopping_list_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
     },
-    username: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    password: {
-        type: DataTypes.STRING,
+    user_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     }
-}, {
-    indexes: [{
-        unique: true,
-        fields: ['username']
-    }]
 });
 
-User.sync({
-    force: true
-});
-
-exports.User = User;
+ShoppingList.hasOne(User);
