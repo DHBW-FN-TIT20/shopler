@@ -1,9 +1,13 @@
-const { Sequelize } = require('sequelize');
+const {
+    Sequelize
+} = require('sequelize');
 
-exports.database = new Sequelize({
+const database = new Sequelize({
     host: 'man.cy',
     dialect: 'mariadb',
     database: 'shopster',
     username: 'shopster',
     password: 'fgICCsMrKmrQU4U1'
 })
+
+exports.database = database;

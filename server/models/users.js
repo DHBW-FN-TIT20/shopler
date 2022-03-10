@@ -1,7 +1,11 @@
-import { DataTypes } from 'sequelize';
-import { database } from '../bin/db/connect';
+const {
+    DataTypes
+} = require('sequelize');
+const {
+    database
+} = require('../bin/db/connect');
 
-const User = database.define('User', {
+const User = database.define('user', {
     user_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
@@ -15,6 +19,15 @@ const User = database.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, {tableName: 'users'});
+}, {
+    indexes: [{
+        unique: true,
+        fields: ['username']
+    }]
+});
 
-User.sync();
+User.sync({
+    force: true
+});
+
+exports.User = User;
