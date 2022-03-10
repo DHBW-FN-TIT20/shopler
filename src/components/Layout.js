@@ -13,6 +13,7 @@ import Shop from './Shop';
 import SignIn from './SignIn';
 import SignUp from './Signup';
 import NewArticle from './NewArticle';
+import StartScreen from './StartScreen';
 
 const drawerWidth = 240;
 
@@ -132,7 +133,7 @@ export default function Navigation() {
       </Drawer>
     </Box>
     <Box sx={{marginLeft: `calc(${theme.spacing(7)} + 1px)`}}>
-      <NewArticle/>
+      <StartScreen/>
     </Box>
     </Box>
   );
