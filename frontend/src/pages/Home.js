@@ -12,12 +12,19 @@ const styles = {
     backgroundRepeat: "no-repeat",
   },
   Headline: {
-    height: "50vh",
+    height: "30vh",
     filter: "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
+  TextField: {
+    height: "10vh",
+    filter: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 };
 
 export default function StartScreen() {
@@ -25,6 +32,9 @@ export default function StartScreen() {
     <Container>
       <Container style={styles.Container} className="FirstView">
         <Typography component="h1" variant="h1" style={styles.Headline}>Shopler</Typography>
+        <Typography component="h6" variant="h6" style={styles.TextField}>
+          Hier steht Text
+        </Typography>
       </Container>
     </Container>
   );
