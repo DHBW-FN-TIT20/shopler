@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Shop from "./Shop";
-import SignIn from "./SignIn";
-import NewArticle from "./NewArticle";
+import Shop from "../pages/Shop";
+import SignIn from "../pages/SignIn";
+import NewArticle from "../pages/NewArticle";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./Navigation";
-import SignUp from "./SignUp";
-import Cart from "./Cart";
+import SignUp from "../pages/SignUp";
+import Cart from "../pages/Cart";
 import { useMediaQuery } from "@mui/material";
 
 export default function Layout() {
@@ -27,8 +27,9 @@ export default function Layout() {
             ? `calc(${theme.spacing(7)} + 1px)`
             : null,
           marginTop: !isGreaterThanSmallBreakpoint
-            ? `calc(${theme.spacing(7)} + 1px)`
-            : null,
+            ? `calc(${theme.spacing(10)} + 1px)`
+            : 5,
+          overflowX: "hidden",
         }}
       >
         <Routes>

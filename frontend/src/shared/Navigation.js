@@ -12,6 +12,7 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Typography,
 } from "@mui/material";
 import { Add, Login, Menu, Search, ShoppingBag } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
@@ -81,8 +82,8 @@ export default function Navigation(props) {
 
   return (
     <Box>
-      { !props.smallscreen ? (
-        <AppBar position="fixed" sx={{flexDirection: "row-reverse"}}>
+      {!props.smallscreen ? (
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               onClick={!open ? handleDrawerOpen : handleDrawerClose}
@@ -93,15 +94,14 @@ export default function Navigation(props) {
             >
               <Menu />
             </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Shopler
+            </Typography>
           </Toolbar>
         </AppBar>
-      ) : null }
+      ) : null}
 
-      <Drawer
-        variant="permanent"
-        open={open}
-        smallscreen={props.smallscreen}
-      >
+      <Drawer variant="permanent" open={open} smallscreen={props.smallscreen}>
         <DrawerHeader>
           {open === false ? (
             <IconButton color="inherit" onClick={handleDrawerOpen}>
@@ -145,7 +145,7 @@ export default function Navigation(props) {
             <ListItemIcon>
               <ShoppingBag />
             </ListItemIcon>
-            <ListItemText>Einkaufswagen</ListItemText>
+            <ListItemText>Einkaufsliste</ListItemText>
           </ListItemButton>
           <ListItemButton
             component={Link}

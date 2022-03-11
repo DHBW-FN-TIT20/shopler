@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from "react-router-dom";
-import Layout from './components/Layout';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import Layout from './shared/Layout';
 
 
 ReactDOM.render(
