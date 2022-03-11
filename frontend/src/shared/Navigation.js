@@ -135,6 +135,18 @@ export default function Navigation(props) {
             <ListItemText>Artkel hinzufügen</ListItemText>
           </ListItemButton>
         </List>
+        <List>
+          <ListItemButton
+              component={Link}
+              to="home"
+              selected={"/home" === location.pathname}
+            >
+              <ListItemIcon>
+                <Add />
+              </ListItemIcon>
+              <ListItemText>Home</ListItemText>
+            </ListItemButton>
+        </List>
         <Divider />
         <List sx={{ marginTop: "auto" }}>
           <ListItemButton
