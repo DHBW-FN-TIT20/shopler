@@ -1,5 +1,4 @@
 import { Button, Container, Typography } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
