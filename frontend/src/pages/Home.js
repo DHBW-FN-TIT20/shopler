@@ -5,8 +5,8 @@ import "./Home.css";
 const styles = {
   Container: {
     "--image": `url(${image})`,
-    height: "100vh",
-    width: "100vw",
+    height: "100%",
+    width: "100%",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
