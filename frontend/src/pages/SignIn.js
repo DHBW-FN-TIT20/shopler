@@ -1,4 +1,4 @@
-import { Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 
@@ -23,7 +23,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h2">
+          <Typography variant="h2">
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -31,10 +31,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Username"
-              name="email"
-              autoComplete=""
+              name="Username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
