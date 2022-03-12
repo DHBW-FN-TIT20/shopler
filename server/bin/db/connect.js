@@ -3,11 +3,11 @@ const {
 } = require('sequelize');
 
 const database = new Sequelize({
-    host: 'man.cy',
+    host: process.env.DB_HOST,
     dialect: 'mariadb',
-    database: 'shopster',
-    username: 'shopster',
-    password: 'fgICCsMrKmrQU4U1'
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 })
 
 exports.database = database;

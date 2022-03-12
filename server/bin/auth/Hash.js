@@ -5,7 +5,7 @@ const argon2 = require('argon2');
  * Can throw!
  * Expects validated inputs
  */
- async function createHash(password) {
+exports.createHash = async function(password) {
     return await argon2.hash(password);
 }
 
@@ -14,9 +14,6 @@ const argon2 = require('argon2');
  * Can throw!
  * Expects validated inputs!
  */
-async function validateUserPassword(user, user_password) {
+exports.validateUserPassword = async function(user, user_password) {
     return await argon2.verify(user.password, user_password);
 }
-
-exports.createHash = createHash();
-exports.validateUserPassword = validateUserPassword();

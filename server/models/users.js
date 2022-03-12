@@ -6,7 +6,7 @@ const {
 } = require('../bin/db/connect');
 
 const User = database.define('user', {
-    user_id: {
+    id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
@@ -19,6 +19,14 @@ const User = database.define('user', {
     password: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    refreshToken: {
+        type: DataTypes.JSON,
+        defaultValue: "[]",
+        set(val) {
+            const newToken = JSON.stringify(val);
+            this.setDataValue('refreshToken', newToken);
+        }
     }
 }, {
     indexes: [{
@@ -27,8 +35,6 @@ const User = database.define('user', {
     }]
 });
 
-User.sync({
-    force: true
-});
+User.sync();
 
 exports.User = User;
