@@ -35,6 +35,4 @@ const User = database.define('user', {
     }]
 });
 
-User.sync();
-
 exports.User = User;
