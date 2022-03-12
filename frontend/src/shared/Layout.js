@@ -36,11 +36,11 @@ export default function Layout() {
         <Routes>
           <Route path="shop" element={<Shop />} />
           <Route path="newarticle" element={<NewArticle />} />
-          <Route path="home" element={<Home />} />
           <Route path="cart" element={<Cart />} />
 
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </Box>
     </Box>

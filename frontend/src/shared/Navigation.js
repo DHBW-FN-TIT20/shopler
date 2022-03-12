@@ -14,7 +14,14 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Add, Home, Login, Menu, Search, ShoppingBag } from "@mui/icons-material";
+import {
+  Add,
+  Home,
+  Login,
+  Menu,
+  Search,
+  ShoppingBag,
+} from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
 const drawerWidth = 240;
@@ -114,16 +121,6 @@ export default function Navigation(props) {
           )}
         </DrawerHeader>
         <List>
-          <ListItemButton
-            component={Link}
-            to="home"
-            selected={"/home" === location.pathname}
-          >
-          <ListItemIcon>
-            <Home />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </ListItemButton>
           <ListItemButton
             component={Link}
             to="shop"

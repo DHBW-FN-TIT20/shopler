@@ -16,11 +16,3 @@
 .FirstView {
     height: "50vh";
 }
-.inner-container{
-    width:500px;
-    height:500px;
-    position:absolute;
-    top:calc(20vh);
-    left:calc(50vw);
-    overflow:hidden;
-  }

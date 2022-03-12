@@ -1,4 +1,15 @@
-import { Container, Typography, Paper, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Paper,
+  Button,
+  Stepper,
+  StepLabel,
+  Step,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { Fragment, useState } from "react";
+import HowToStepper from "../components/Home/HowToStepper";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Home.css";
@@ -6,14 +17,15 @@ import "./Home.css";
 const styles = {
   Container: {
     "--image": `url(${image})`,
-    height: "100%",
+    height: "100vh",
     width: "100%",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   },
-  Logo:{
+  Logo: {
     backgroundImage: `url(${Logo})`,
+    maxWidth: 500
   },
   Headline: {
     height: "30vh",
@@ -23,31 +35,34 @@ const styles = {
     justifyContent: "center",
   },
   TextField: {
-    width: "100vh",
     padding: 15,
-    opacity: 0.7
+    opacity: 0.7,
+    textAlign: "center"
+  },
+  Stepper: {
+    paddingTop: "10vh",
+    paddingBottom: "10vh"
   }
 };
 
-export default function StartScreen() {
+export default function Home() {
   return (
     <Container>
       <Container style={styles.Container} className="FirstView">
-        <Container maxWidth="60%" component={Paper} elevation={20} style={styles.TextField}>
-          <Typography textAlign={"center"} variant="h2">
-            <img src={Logo} style={styles.Logo} alt="logo"/>
-          </Typography>
-          <Typography textAlign={"center"} variant="h2">
+        <Container
+          maxWidth="60%"
+          component={Paper}
+          elevation={20}
+          style={styles.TextField}
+        >
+          <img src={Logo} style={styles.Logo} alt="logo" />
+          <Typography variant="body1">
             Hier steht unsere Geschichte
           </Typography>
-          <Typography textAlign={"center"}>
-            Haben wir ihr Interesse geweckt?
-            Registrieren Sie sich 
-            <Button>
-              hier.
-            </Button>
-          </Typography>
         </Container>
+      </Container>
+      <Container style={styles.Stepper}>
+        <HowToStepper />
       </Container>
     </Container>
   );
