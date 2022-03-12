@@ -2,7 +2,7 @@ import { Container, Typography, Paper, Button } from "@mui/material";
 import { positions } from "@mui/system";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
-import "./Home.css";
+import "./Impressum.css";
 
 const styles = {
   Container: {

@@ -14,7 +14,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Add, Home, Login, Menu, Search, ShoppingBag } from "@mui/icons-material";
+import { Accessibility, Add, Home, Login, Menu, Search, ShoppingBag} from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
 const drawerWidth = 240;
@@ -166,6 +166,16 @@ export default function Navigation(props) {
               <Login />
             </ListItemIcon>
             <ListItemText>Login/Register</ListItemText>
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="impressum"
+            selected={location.pathname.startsWith("/impressum")}
+          >
+            <ListItemIcon>
+              <Accessibility />
+            </ListItemIcon>
+            <ListItemText>Impressum</ListItemText>
           </ListItemButton>
         </List>
       </Drawer>
