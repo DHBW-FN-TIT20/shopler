@@ -1,4 +1,4 @@
-import { Container, Typography, Paper } from "@mui/material";
+import { Container, Typography, Paper, Button } from "@mui/material";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Home.css";
@@ -35,10 +35,17 @@ export default function StartScreen() {
       <Container style={styles.Container} className="FirstView">
         <Container maxWidth="60%" component={Paper} elevation={20} style={styles.TextField}>
           <Typography textAlign={"center"} variant="h2">
-            <img src={Logo} style={styles.Logo} />
+            <img src={Logo} style={styles.Logo} alt="logo"/>
           </Typography>
           <Typography textAlign={"center"} variant="h2">
             Hier steht unsere Geschichte
+          </Typography>
+          <Typography textAlign={"center"}>
+            Haben wir ihr Interesse geweckt?
+            Registrieren Sie sich 
+            <Button>
+              hier.
+            </Button>
           </Typography>
         </Container>
       </Container>
