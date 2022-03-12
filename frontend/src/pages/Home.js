@@ -28,8 +28,8 @@ export default function StartScreen() {
     <Container>
       <Container style={styles.Container} className="FirstView">
         <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
-          <Typography textAlign={"center"} height={"240px"} variant="h2">
-            <img src={Logo} alt="logo"/>
+          <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
+            <img src={Logo} alt="logo" width={"500%"}/>
           </Typography>
           <Typography textAlign={"center"} variant="h2">
             Hier steht unsere Geschichte
