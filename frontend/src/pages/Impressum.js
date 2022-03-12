@@ -86,9 +86,6 @@ export default function StartScreen() {
                 </p>
             </p>
           </Typography>
-          <Typography>
-            Registrieren Sie sich hier.
-          </Typography>
         </Container>
       </Container>
     </Container>
