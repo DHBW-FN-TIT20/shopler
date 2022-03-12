@@ -1,19 +1,59 @@
-import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Button, Container, CssBaseline, TextField, Typography, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import {useUserStore} from "../stores/UserStore";
 
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userContext, setUserContext] = useUserStore();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    const genericErrorMessage = "Something went wrong! Please try again later.";
+
+    await fetch(process.env.REACT_APP_API_ENDPOINT + "users/login", {
+      method: "POST",
+      credetials: "include",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({username, password})
+    })
+      .then(async response => {
+        setIsSubmitting(false);
+        if (!response.ok) {
+          if (response.status === 400) {
+            setError("Please fill all the fields correctly!");
+          } else if (response.status === 401) {
+            setError("Invalid email and password combination.");
+          } else {
+            setError(genericErrorMessage);
+          }
+        } else {
+          const data = await response.json();
+          console.log("Request Token: ", data.token);
+          setUserContext.setToken(data.token);
+          setUserContext.setUsername(username);
+          navigate("/Home")
+        }
+      })
+      .catch(error => {
+        setIsSubmitting(false);
+        setError(genericErrorMessage);
+        console.log(error);
+    })
+  }
+
   return(
       <Container component="main" maxWidth="xs">
+        {error&&<Alert severity="error">{error}</Alert>}
         <CssBaseline />
         <Box
           sx={{
@@ -36,6 +76,8 @@ export default function SignIn() {
               name="Username"
               autoComplete="username"
               autoFocus
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -46,6 +88,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <Typography>
               <Link to={{pathname: "/signup"}}>
@@ -56,8 +100,9 @@ export default function SignIn() {
               type="submit"
               variant="contained"
               sx={{ mt: 2, float: 'right' }}
+              disabled={isSubmitting}
             >
-              Sign In
+            {isSubmitting? "Signing In" : "Sign In"}
             </Button>
           </Box>
         </Box>

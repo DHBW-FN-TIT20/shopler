@@ -10,6 +10,7 @@ import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import { useMediaQuery } from "@mui/material";
+import { useUserStore } from "../stores/UserStore";
 
 export default function Layout() {
   const theme = useTheme();
@@ -18,7 +19,10 @@ export default function Layout() {
     theme.breakpoints.up("sm")
   );
 
-  return (
+  const [userState, userAction] = useUserStore();
+
+  if (!userState.token) {
+    return(
     <Box>
       <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
@@ -34,15 +38,45 @@ export default function Layout() {
         }}
       >
         <Routes>
-          <Route path="shop" element={<Shop />} />
-          <Route path="newarticle" element={<NewArticle />} />
+          <Route path="" element={<Home />} />
+          <Route path="shop" element={<SignIn />} />
+          <Route path="newarticle" element={<SignIn />} />
           <Route path="home" element={<Home />} />
-          <Route path="cart" element={<Cart />} />
+          <Route path="cart" element={<SignIn />} />
 
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
         </Routes>
       </Box>
     </Box>
-  );
+  )} else {
+    return (
+      <Box>
+        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
+
+        <Box
+          sx={{
+            marginLeft: isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(7)} + 1px)`
+              : null,
+            marginTop: !isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(10)} + 1px)`
+              : 5,
+            overflowX: "hidden",
+          }}
+        >
+          <Routes>
+            <Route path="" element={<Home/>} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="newarticle" element={<NewArticle />} />
+            <Route path="home" element={<Home />} />
+            <Route path="cart" element={<Cart />} />
+
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+          </Routes>
+        </Box>
+      </Box>
+    );
+  }
 }
