@@ -1,5 +1,7 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Paper, Button } from "@mui/material";
+import { positions } from "@mui/system";
 import image from "../img/einkaufen.jpg";
+import Logo from "../img/logo.svg";
 import "./Home.css";
 
 const styles = {
@@ -11,19 +13,13 @@ const styles = {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   },
-  Headline: {
-    height: "30vh",
-    filter: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+  Logo:{
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%",
   },
   TextField: {
-    height: "10vh",
-    filter: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
+    opacity: 0.65
   }
 };
 
@@ -31,10 +27,21 @@ export default function StartScreen() {
   return (
     <Container>
       <Container style={styles.Container} className="FirstView">
-        <Typography component="h1" variant="h1" style={styles.Headline}>Shopler</Typography>
-        <Typography component="h6" variant="h6" style={styles.TextField}>
-          Hier steht Text
-        </Typography>
+        <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
+          <Typography textAlign={"center"} height={"260px"} variant="h2">
+            <img src={Logo} alt="logo"/>
+          </Typography>
+          <Typography textAlign={"center"} variant="h2">
+            Hier steht unsere Geschichte
+          </Typography>
+          <Typography textAlign={"center"}>
+            Haben wir ihr Interesse geweckt?
+            Registrieren Sie sich 
+            <Button>
+              hier.
+            </Button>
+          </Typography>
+        </Container>
       </Container>
     </Container>
   );
