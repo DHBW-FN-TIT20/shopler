@@ -19,7 +19,7 @@ const UserStore = createStore({
         reset:
             () =>
             ({setState}) => {
-                setState({token: "", username: ""});
+                setState({token: null, username: null});
             }
     }
 });

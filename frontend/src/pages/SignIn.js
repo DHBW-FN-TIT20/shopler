@@ -13,14 +13,14 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [userContext, setUserContext] = useUserStore();
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
 
     const genericErrorMessage = "Something went wrong! Please try again later.";
 
-    await fetch(process.env.REACT_APP_API_ENDPOINT + "users/login", {
+    fetch(process.env.REACT_APP_API_ENDPOINT + "users/login", {
       method: "POST",
       credetials: "include",
       headers: {"Content-Type": "application/json"},
