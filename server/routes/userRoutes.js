@@ -4,7 +4,7 @@ const User = require('./../models/users').User;
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
 
-const {getToken, COOKIE_OPTIONS, getRefreshToken} = require('./../bin/auth/authenticate');
+const {getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser} = require('./../bin/auth/authenticate');
 const { token } = require('morgan');
 
 router.post("/signup", (req, res, next) => {
@@ -22,9 +22,15 @@ router.post("/signup", (req, res, next) => {
         const refreshToken = []
         refreshToken[0] = getRefreshToken({id: user.id});
         user.refreshToken = refreshToken;
-        user.save();
-        res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-        res.send({success: true, token});
+        try {
+            user.save();
+            res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
+            res.send({success: true, token});
+        } catch (err) {
+            res.statusCode = 500;
+            res.send(err);
+            console.log(err);
+        }
     })(req, res, next);
 });
 
@@ -49,10 +55,15 @@ router.post("/login", (req, res, next) => {
         const refreshToken = getRefreshToken({id: user.id});
         refreshTokenArr.push(refreshToken);
         user.refreshToken = refreshTokenArr;
-        user.save();
-        res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-        res.send({success: true, token});
-
+        try {
+            user.save();
+            res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
+            res.send({success: true, token});
+        } catch (err) {
+            res.statusCode = 500;
+            res.send(err);
+            console.log(err);
+        }
     })(req, res, next);
 });
 
@@ -77,9 +88,15 @@ router.post("/refreshToken", async (req, res, next) => {
                     const newRefreshToken = getRefreshToken({id: userId});
                     refreshTokenArray[tokenIndex] = newRefreshToken;
                     user.refreshToken = refreshTokenArray;
-                    user.save();
-                    res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
-                    res.send({success: true, token});
+                    try {
+                        user.save();
+                        res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
+                        res.send({success: true, token});
+                    } catch (err) {
+                        res.statusCode = 500;
+                        res.send(err);
+                        console.log(err);
+                    }
                 }
             } else {
                 res.statusCode = 401;
@@ -94,6 +111,39 @@ router.post("/refreshToken", async (req, res, next) => {
         res.statusCode = 401;
         res.send("Unauthorized");
     }
+});
+
+router.get("/logout", verifyUser, async (req, res, next) => {
+    const {signedCookies = {}} = req;
+    const {refreshToken} = signedCookies;
+    const user = await req.user;
+    if (!user) {
+        res.statusCode = 500;
+        return res.send("User not found.");
+    }
+    const refreshTokenArr = user.refreshToken;
+    const tokenIndex = refreshTokenArr.indexOf(refreshToken)
+    if (tokenIndex !== -1) {
+        refreshTokenArr.splice(tokenIndex, 1);
+    } else {
+        res.statusCode = 401;
+        return res.send("Unauthorized.");
+    }
+    user.refreshToken = refreshTokenArr;
+    try {
+        user.save();
+        res.clearCookie("refreshToken", COOKIE_OPTIONS);
+        res.send({success: true});
+    } catch (err) {
+        res.statusCode = 500;
+        res.send(err);
+        console.log(err);
+    }
+});
+
+router.get("/me", verifyUser, async (req, res, next) => {
+    const user = await req.user;
+    res.send({username: user.username});
 });
 
 module.exports = router

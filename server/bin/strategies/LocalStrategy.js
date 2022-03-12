@@ -8,8 +8,9 @@ passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    const user = User.findByPk(id);
+passport.deserializeUser(async function(id, done) {
+    console.log("deserialize");
+    const user = await User.findByPk(id);
     if (user === null) {
         return done(null, false, {
             message: 'User not found.'
