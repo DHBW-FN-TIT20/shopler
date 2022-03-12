@@ -9,6 +9,7 @@ import Navigation from "./Navigation";
 import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
+import Impressum from "../pages/Impressum";
 import { useMediaQuery } from "@mui/material";
 import { useUserStore } from "../stores/UserStore";
 
@@ -46,6 +47,7 @@ export default function Layout() {
 
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="impressum" element={<Impressum />} />
         </Routes>
       </Box>
     </Box>
