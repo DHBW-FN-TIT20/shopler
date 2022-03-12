@@ -1,14 +1,4 @@
-import {
-  Container,
-  Typography,
-  Paper,
-  Button,
-  Stepper,
-  StepLabel,
-  Step,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { Fragment, useState } from "react";
+import { Container, Typography, Paper } from "@mui/material";
 import HowToStepper from "../components/Home/HowToStepper";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
@@ -23,10 +13,6 @@ const styles = {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   },
-  Logo: {
-    backgroundImage: `url(${Logo})`,
-    maxWidth: 500
-  },
   Headline: {
     height: "30vh",
     filter: "none",
@@ -37,12 +23,20 @@ const styles = {
   TextField: {
     padding: 15,
     opacity: 0.7,
-    textAlign: "center"
+    textAlign: "center",
   },
   Stepper: {
     paddingTop: "10vh",
-    paddingBottom: "10vh"
-  }
+    paddingBottom: "10vh",
+  },
+  Logo: {
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%",
+  },
+  TextField: {
+    opacity: 0.65,
+  },
 };
 
 export default function Home() {
@@ -52,11 +46,13 @@ export default function Home() {
         <Container
           maxWidth="60%"
           component={Paper}
-          elevation={20}
+          variant={"outlined"}
           style={styles.TextField}
         >
-          <img src={Logo} style={styles.Logo} alt="logo" />
-          <Typography variant="body1">
+          <Typography textAlign={"center"} height={"260px"} variant="h2">
+            <img src={Logo} alt="logo" />
+          </Typography>
+          <Typography textAlign={"center"} variant="body1">
             Hier steht unsere Geschichte
           </Typography>
         </Container>
