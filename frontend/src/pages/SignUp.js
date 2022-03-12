@@ -1,19 +1,59 @@
-import { Box, Button, Container, CssBaseline, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-
+import { Box, Button, Container, CssBaseline, TextField, Typography, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useUserStore } from "../stores/UserStore";
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userStore, userAction] = useUserStore();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    const genericErrorMessage = "Something went wrong! Please try again later."
+
+    fetch(process.env.REACT_APP_API_ENDPOINT + "users/signup", {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({username, password})
+    })
+    .then(async response => {
+      setIsSubmitting(false);
+      if (!response.ok) {
+        if (response.status === 400) {
+          setError("Please fill all the fileds correctly!");
+        } else if (response.status === 401) {
+          setError("Invalid email and password combination.");
+        } else if (response.status === 500) {
+          console.log(response);
+          const data = await response.json();
+          if (data.message) setError(data.message || genericErrorMessage);
+        } else {
+          setError(genericErrorMessage);
+        }
+      } else {
+        const data = await response.json();
+        userAction.setToken(data.token);
+        userAction.setUsername(username);
+        navigate("/home");
+      }
+    })
+    .catch(error => {
+      setIsSubmitting(false);
+      setError(genericErrorMessage);
     });
-  };
+  }
+
   return(
       <Container component="main" maxWidth="xs">
+        {error&&<Alert severity="error">{error}</Alert>}
         <CssBaseline />
         <Box
           sx={{
@@ -31,11 +71,13 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Username"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
               autoFocus
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -46,6 +88,8 @@ export default function SignUp() {
               type="password"
               id="password"
               autoComplete="new-password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <Typography>
               <Link to={{pathname: "/signin"}} variant="body2">
@@ -56,8 +100,9 @@ export default function SignUp() {
               type="submit"
               variant="contained"
               sx={{ mt: 2, float: 'right' }}
+              disabled={isSubmitting}
             >
-              Sign Up
+            {isSubmitting? "bitte warten" : "Registrieren"}
             </Button>
           </Box>
         </Box>
