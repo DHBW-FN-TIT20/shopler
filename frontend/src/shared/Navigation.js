@@ -157,6 +157,7 @@ export default function Navigation(props) {
         </List>
         <Divider />
         <List sx={{ marginTop: "auto" }}>
+          <Divider />
           <ListItemButton
             component={Link}
             to="signin"
