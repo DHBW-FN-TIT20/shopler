@@ -31,7 +31,7 @@ export default function StartScreen() {
       <view>
         <Container style={styles.Container} className="FirstView"> </Container>
       </view>
-        <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
+        <Container maxWidth="55%" component={Paper} variant={"outlined"} style={styles.TextField}>
           <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
             <img src={Logo} alt="logo" width={"500%"}/>
           </Typography>

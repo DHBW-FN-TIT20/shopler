@@ -19,7 +19,7 @@ const styles = {
     width: "100%",
   },
   TextField: {
-    opacity: 0.7,
+    opacity: 0.65,
     marginBottom: 20
   }
 };
@@ -28,14 +28,14 @@ export default function StartScreen() {
   return (
     <Container>
       <Container style={styles.Container} className="FirstView">
-        <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
+        <Container maxWidth="55%" component={Paper} variant={"outlined"} style={styles.TextField}>
           <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
             <img src={Logo} alt="logo" width={"500%"}/>
           </Typography>
           <Typography textAlign={"center"} variant="h2">
             Impressum
           </Typography>
-          <Typography textAlign={"left"}>
+          <Typography>
             <p>Shopler GmbH</p>
             <p>
                 Anschrift: <br />
@@ -44,7 +44,7 @@ export default function StartScreen() {
                 88046 Friedrichshafen </p>
             <p>
                 Kontaktaufnahme: <br />
-                E-Mail   : Shopler@shop.de <br />
+                E-Mail   : info@shopler.de <br />
                 Telefon  : 0123 456789
             </p>
             <p>
@@ -59,14 +59,14 @@ export default function StartScreen() {
                 Haftungsausschluss - Disclaimer <br />
                 <p>
                     Haftung für Inhalte <br />
-                    Alle Inhalte unseres Internetauftritts wurden mit größter Sorgfalt und nach bestem Gewissen erstellt. Für die Richtigkeit, <br /> 
-                    Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 <br />
-                    TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als <br />
-                    Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen <br />
-                    zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von <br />
+                    Alle Inhalte unseres Internetauftritts wurden mit größter Sorgfalt und nach bestem Gewissen erstellt. Für die Richtigkeit,
+                    Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1
+                    TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+                    Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen
+                    zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
                     Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. <br /> <br />
 
-                    Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntniserlangung einer konkreten Rechtsverletzung möglich. Bei <br />
+                    Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntniserlangung einer konkreten Rechtsverletzung möglich. Bei
                     Bekanntwerden von den o.g. Rechtsverletzungen werden wir diese Inhalte unverzüglich entfernen.
                 </p>
                 <p>
