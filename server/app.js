@@ -73,7 +73,8 @@ app.use('/users', userRouter);
 
 // setup database
 try {
-  Category.hasMany(Item);
+  Item.belongsToMany(Category, {through: 'item_cat'});
+  Category.belongsToMany(Item, {through: 'item_cat'});
   Item.hasMany(CartItem);
   List.hasMany(CartItem);
   User.hasOne(List);
