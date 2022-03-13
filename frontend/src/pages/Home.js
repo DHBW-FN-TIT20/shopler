@@ -1,4 +1,4 @@
-import { Container, Typography, Paper, Grid, Button } from "@mui/material";
+import { Container, Typography, Grid, Button } from "@mui/material";
 import HowToStepper from "../components/Home/HowToStepper";
 import CheckBoxes from "../img/Checking-boxes.svg";
 import AboutUs from "../img/About-Us.svg";
@@ -17,6 +17,11 @@ const styles = {
     padding: 15,
     textAlign: "center",
   },
+  CenteredContent: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
   Stepper: {
     paddingTop: "10vh",
     paddingBottom: "10vh",
@@ -28,7 +33,7 @@ export default function Home() {
     <Container>
       <Grid container sx={{ mt: "20vh", mb: "10vh" }} className="FirstView">
         <Grid item style={styles.TextField} xs={12} sm={7}>
-          <img style={{ width: "70%" }} src={Logo} />
+          <img style={{ width: "70%" }} src={Logo} alt="Shopler" />
           <Typography textAlign={"center"} paragraph>
             Einkaufen hat sich noch nie so einfach gestaltet. Dein Begleiter
             durch den ganzen Tag. Vergessen ist gestern.
@@ -65,7 +70,7 @@ export default function Home() {
           >
             <img style={{ width: "80%" }} src={AboutUs} alt="" />
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={7} sx={styles.CenteredContent}>
             <Typography variant="h4">Wer wir sind</Typography>
             <Typography paragraph>
               Wir sind 3 Studenten der DHBW und sind begeisterte Entwickler. Und
@@ -77,13 +82,13 @@ export default function Home() {
               gehen. So die Idee der digitalen Einkaufsliste, kurz: Shopler.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={7} sx={styles.CenteredContent}>
             <Typography variant="h4">Die Idee</Typography>
             <Typography paragraph>
               Stift und Block ist Vergangenheit. Keiner hat immer und überall
               seinen Block dabei, spätestens nach einem Tag bleibt dieser
               irgendwo liegen. So nicht Shopler. Die Online Einkaufsliste bleibt
-              kann nich vergessen oder liegen gelassen werden.
+              und kann nich vergessen oder liegen gelassen werden.
             </Typography>
           </Grid>
           <Grid

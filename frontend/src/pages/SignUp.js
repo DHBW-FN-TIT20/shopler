@@ -43,7 +43,7 @@ export default function SignUp() {
         localStorage.setItem("refreshToken", data.refreshToken);
         userAction.setToken(data.token);
         userAction.setUsername(username);
-        navigate("/home");
+        navigate("/");
       }
     })
     .catch(error => {

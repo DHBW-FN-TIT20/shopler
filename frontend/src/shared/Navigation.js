@@ -15,11 +15,8 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  Accessibility,
   Add,
-  Feed,
   Home,
-  Info,
   Login,
   Logout,
   Menu,
@@ -213,26 +210,6 @@ export default function Navigation({ smallscreen }) {
               <ListItemText>Login | Registrieren</ListItemText>
             </ListItemButton>
           )}
-          <ListItemButton
-            component={Link}
-            to="inprint"
-            selected={location.pathname.startsWith("/inprint")}
-          >
-            <ListItemIcon>
-              <Info />
-            </ListItemIcon>
-            <ListItemText>Impressum</ListItemText>
-          </ListItemButton>
-          <ListItemButton
-            component={Link}
-            to="privacy"
-            selected={location.pathname.startsWith("/privacy")}
-          >
-            <ListItemIcon>
-              <Feed />
-            </ListItemIcon>
-            <ListItemText>Privacy</ListItemText>
-          </ListItemButton>
         </List>
       </Drawer>
     </Box>

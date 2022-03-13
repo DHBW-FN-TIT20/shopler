@@ -1,5 +1,4 @@
 import { Container, Typography, Paper, Link } from "@mui/material";
-import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Inprint.css";
 

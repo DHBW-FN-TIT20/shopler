@@ -6,16 +6,10 @@ import {
   CardContent,
   Checkbox,
   Chip,
-  Container,
-  FormControl,
   Grid,
-  InputLabel,
   List,
   ListItem,
   ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
   Step,
   StepLabel,
   Stepper,
@@ -27,6 +21,24 @@ import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 
 const steps = ["Artikel auswählen", "Liste abhaken", "Neuer Artikel"];
+
+const styles = {
+  FormBox: {
+    padding: 3,
+  },
+  TextBox: {
+    padding: 4,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  FinishedField: {
+    margin: "auto",
+    textAlign: "center",
+    mt: 4,
+    mb: 3,
+  },
+};
 
 export default function HowToStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -43,12 +55,12 @@ export default function HowToStepper() {
     setActiveStep(0);
   };
 
-  function renderSwitch(stepcount) {
+  function renderStep(stepcount) {
     switch (stepcount) {
       case 0:
         return (
           <Fragment>
-            <Grid item xs={12} sm={6} sx={{padding: 2}}>
+            <Grid item xs={12} sm={6} sx={styles.FormBox}>
               <Card>
                 <CardContent>
                   <Typography variant="h5" component="div">
@@ -73,15 +85,17 @@ export default function HowToStepper() {
                 </CardActions>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} sx={{padding: 2}}>
-              Füge Artikel zu deiner Einkaufsliste über das Plus Symbol hinzu
+            <Grid item xs={12} sm={6} sx={styles.TextBox}>
+              <Typography paragraph>
+                Füge Artikel zu deiner Einkaufsliste über das Plus Symbol hinzu
+              </Typography>
             </Grid>
           </Fragment>
         );
       case 1:
         return (
           <Fragment>
-            <Grid item xs={12} sm={7} sx={{padding: 2}}>
+            <Grid item xs={12} sm={7} sx={styles.FormBox}>
               <List>
                 <ListItem
                   button
@@ -115,15 +129,24 @@ export default function HowToStepper() {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={12} sm={5} sx={{padding: 2}}>
-              Hake deine erledigten Einkäufe ab
+            <Grid item xs={12} sm={5} sx={styles.TextBox}>
+              <Typography paragraph>
+                Hake deine erledigten Einkäufe ab
+              </Typography>
             </Grid>
           </Fragment>
         );
       case 2:
         return (
           <Fragment>
-            <Grid item xs={12} md={5} component="form" noValidate sx={{padding: 2}}>
+            <Grid
+              item
+              xs={12}
+              md={5}
+              component="form"
+              noValidate
+              sx={styles.FormBox}
+            >
               <TextField
                 margin="normal"
                 required
@@ -150,9 +173,11 @@ export default function HowToStepper() {
                 Hinzufügen
               </Button>
             </Grid>
-            <Grid item xs={12} md={7} sx={{padding: 2}}>
-              Füge eigene, neue Artikel hinzu und erweitere so den Katalog
-              aller.
+            <Grid item xs={12} md={7} sx={styles.TextBox}>
+              <Typography paragraph>
+                Füge eigene, neue Artikel hinzu und erweitere so den Katalog
+                aller.
+              </Typography>
             </Grid>
           </Fragment>
         );
@@ -164,7 +189,7 @@ export default function HowToStepper() {
   return (
     <Box>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map((label) => {
           const stepProps = {};
           const labelProps = {};
           return (
@@ -176,20 +201,25 @@ export default function HowToStepper() {
       </Stepper>
       {activeStep === steps.length ? (
         <Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }} textAlign="center">
-            Bereit für den Start! Jetzt
-            <Link to={{ pathname: "signup" }}>Registrieren</Link>
-            und loslegen
-          </Typography>
+          <Box maxWidth={200} sx={styles.FinishedField}>
+            <Typography paragraph>Bereit für den Einkauf!</Typography>
+            <Button
+              component={Link}
+              variant="contained"
+              to={{ pathname: "signup" }}
+            >
+              Registrieren
+            </Button>
+          </Box>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button onClick={handleReset}>Nochmal</Button>
           </Box>
         </Fragment>
       ) : (
         <Fragment>
           <Grid container sx={{ margin: "auto" }}>
-            {renderSwitch(activeStep)}
+            {renderStep(activeStep)}
           </Grid>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
@@ -198,12 +228,12 @@ export default function HowToStepper() {
               onClick={handleBack}
               sx={{ mr: 1 }}
             >
-              Back
+              Zurück
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
 
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {activeStep === steps.length - 1 ? "Ende" : "Weiter"}
             </Button>
           </Box>
         </Fragment>

@@ -16,6 +16,7 @@ import { ThemeProvider } from "@emotion/react";
 import MainTheme from "../theme/MainTheme";
 import { useUserStore } from "../stores/UserStore";
 import Loader from "./Loader";
+import Footer from "./Footer";
 
 export default function Layout() {
   const theme = useTheme();
@@ -65,32 +66,39 @@ export default function Layout() {
             overflowX: "hidden",
           }}
         >
-          {userState.token === null || userState.token ? (
-            <Routes>
-              <Route path="" element={<Home />} />
-              <Route
-                path="shop"
-                element={userState.token ? <Shop /> : <Navigate to="/signin" />}
-              />
-              <Route
-                path="newarticle"
-                element={
-                  userState.token ? <NewArticle /> : <Navigate to="/signin" />
-                }
-              />
-              <Route
-                path="cart"
-                element={userState.token ? <Cart /> : <Navigate to="/signin" />}
-              />
+          <Box component="main" sx={{ minHeight: "100vh" }}>
+            {userState.token === null || userState.token ? (
+              <Routes>
+                <Route path="" element={<Home />} />
+                <Route
+                  path="shop"
+                  element={
+                    userState.token ? <Shop /> : <Navigate to="/signin" />
+                  }
+                />
+                <Route
+                  path="newarticle"
+                  element={
+                    userState.token ? <NewArticle /> : <Navigate to="/signin" />
+                  }
+                />
+                <Route
+                  path="cart"
+                  element={
+                    userState.token ? <Cart /> : <Navigate to="/signin" />
+                  }
+                />
 
-              <Route path="signin" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="inprint" element={<Inprint />} />
-              <Route path="privacy" element={<Privacy />} />
-            </Routes>
-          ) : (
-            <Loader />
-          )}
+                <Route path="signin" element={<SignIn />} />
+                <Route path="signup" element={<SignUp />} />
+                <Route path="inprint" element={<Inprint />} />
+                <Route path="privacy" element={<Privacy />} />
+              </Routes>
+            ) : (
+              <Loader />
+            )}
+          </Box>
+          <Footer />
         </Box>
       </React.Fragment>
     </ThemeProvider>
