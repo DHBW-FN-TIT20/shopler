@@ -74,7 +74,6 @@ export default function Layout() {
                 userState.token ? <NewArticle /> : <Navigate to="/signin" />
               }
             />
-            <Route path="home" element={<Home />} />
             <Route
               path="cart"
               element={userState.token ? <Cart /> : <Navigate to="/signin" />}

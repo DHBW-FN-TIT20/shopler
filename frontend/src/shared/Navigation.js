@@ -134,8 +134,8 @@ export default function Navigation({ smallscreen }) {
         <List>
           <ListItemButton
             component={Link}
-            to="home"
-            selected={"/home" === location.pathname}
+            to=""
+            selected={"/" === location.pathname}
           >
             <ListItemIcon>
               <Home />
@@ -179,8 +179,7 @@ export default function Navigation({ smallscreen }) {
           {userStore.token ? (
             <ListItemButton
               component={Link}
-              to="home"
-              selected={location.pathname.startsWith("/home")}
+              to="/"
             >
               <ListItemIcon>
                 <Logout />
