@@ -10,6 +10,8 @@ import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import { useMediaQuery } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import MainTheme from "../theme/MainTheme";
 
 export default function Layout() {
   const theme = useTheme();
@@ -19,30 +21,32 @@ export default function Layout() {
   );
 
   return (
-    <Box>
-      <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
+    <ThemeProvider theme={MainTheme}>
+      <React.Fragment>
+        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
-      <Box
-        sx={{
-          marginLeft: isGreaterThanSmallBreakpoint
-            ? `calc(${theme.spacing(7)} + 1px)`
-            : null,
-          marginTop: !isGreaterThanSmallBreakpoint
-            ? `calc(${theme.spacing(10)} + 1px)`
-            : 5,
-          overflowX: "hidden",
-        }}
-      >
-        <Routes>
-          <Route path="shop" element={<Shop />} />
-          <Route path="newarticle" element={<NewArticle />} />
-          <Route path="cart" element={<Cart />} />
+        <Box
+          sx={{
+            marginLeft: isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(7)} + 1px)`
+              : null,
+            marginTop: !isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(10)} + 1px)`
+              : 5,
+            overflowX: "hidden",
+          }}
+        >
+          <Routes>
+            <Route path="shop" element={<Shop />} />
+            <Route path="newarticle" element={<NewArticle />} />
+            <Route path="cart" element={<Cart />} />
 
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Box>
-    </Box>
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Box>
+      </React.Fragment>
+    </ThemeProvider>
   );
 }
