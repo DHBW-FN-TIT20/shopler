@@ -184,7 +184,7 @@ export default function Navigation(props) {
             <ListItemIcon>
               <Login />
             </ListItemIcon>
-            <ListItemText>Login/Register</ListItemText>
+            <ListItemText>Login | Registrieren</ListItemText>
           </ListItemButton>
           )}
           <ListItemButton
