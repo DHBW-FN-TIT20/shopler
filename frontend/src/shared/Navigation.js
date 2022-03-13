@@ -144,9 +144,6 @@ export default function Navigation(props) {
             </ListItemIcon>
             <ListItemText>Artkel hinzufügen</ListItemText>
           </ListItemButton>
-        </List>
-        <Divider />
-        <List sx={{ marginTop: "auto" }}>
           <ListItemButton
             component={Link}
             to="cart"
@@ -157,6 +154,9 @@ export default function Navigation(props) {
             </ListItemIcon>
             <ListItemText>Einkaufsliste</ListItemText>
           </ListItemButton>
+        </List>
+        <Divider />
+        <List sx={{ marginTop: "auto" }}>
           <ListItemButton
             component={Link}
             to="signin"
