@@ -57,6 +57,8 @@ router.post("/login", (req, res, next) => {
         user.refreshToken = refreshTokenArr;
         try {
             user.save();
+            res.header('Access-Control-Allow-Credentials', true);
+            res.header("Access-Control-Allow-Headers", "X-Custom-Header");
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
             res.send({success: true, token});
         } catch (err) {
@@ -79,10 +81,9 @@ router.post("/refreshToken", async (req, res, next) => {
             if (user) {
                 var refreshTokenArray = user.refreshToken;
                 const tokenIndex = refreshTokenArray.findIndex(item => item === refreshToken)
-
                 if (tokenIndex === -1) {
                     res.statusCode = 401;
-                    res.send("Unauthorized");
+                    res.send("No Token in DB");
                 } else {
                     const token = getToken({id: userId});
                     const newRefreshToken = getRefreshToken({id: userId});
@@ -90,6 +91,8 @@ router.post("/refreshToken", async (req, res, next) => {
                     user.refreshToken = refreshTokenArray;
                     try {
                         user.save();
+                        res.header('Access-Control-Allow-Credentials', true);
+                        res.header("Access-Control-Allow-Headers", "X-Custom-Header");
                         res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
                         res.send({success: true, token});
                     } catch (err) {
@@ -100,7 +103,7 @@ router.post("/refreshToken", async (req, res, next) => {
                 }
             } else {
                 res.statusCode = 401;
-                res.send("Unauthorized");
+                res.send("No user.");
             }
         } catch (err) {
             console.log(err);
@@ -109,7 +112,7 @@ router.post("/refreshToken", async (req, res, next) => {
         }
     } else {
         res.statusCode = 401;
-        res.send("Unauthorized");
+        res.send("No Token");
     }
 });
 
@@ -132,6 +135,8 @@ router.get("/logout", verifyUser, async (req, res, next) => {
     user.refreshToken = refreshTokenArr;
     try {
         user.save();
+        res.header('Access-Control-Allow-Credentials', true);
+        res.header("Access-Control-Allow-Headers", "X-Custom-Header");
         res.clearCookie("refreshToken", COOKIE_OPTIONS);
         res.send({success: true});
     } catch (err) {
