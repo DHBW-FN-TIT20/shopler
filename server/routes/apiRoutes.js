@@ -40,4 +40,18 @@ router.post("/newitem", verifyUser, async (req, res, next) => {
     res.send({success: true});
 });
 
+router.get("/categories", verifyUser, async (req, res, next) => {
+    var categories = [];
+    try {
+            categories = await Category.findAll({
+            attributes: ['id', 'name']
+        });
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        return res.send("Internal Server Error");
+    }
+    res.send({categories});
+});
+
 module.exports = router;
