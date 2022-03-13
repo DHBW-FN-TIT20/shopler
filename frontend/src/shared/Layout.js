@@ -12,6 +12,7 @@ import Home from "../pages/Home";
 import Impressum from "../pages/Impressum";
 import { useMediaQuery } from "@mui/material";
 import { useUserStore } from "../stores/UserStore";
+import Loader from "./Loader";
 
 export default function Layout() {
   const theme = useTheme();
@@ -22,7 +23,27 @@ export default function Layout() {
 
   const [userState, userAction] = useUserStore();
 
-  if (!userState.token) {
+  const verifyUser = React.useCallback(() => {
+    fetch(process.env.REACT_APP_API_ENDPOINT + "users/refreshToken", {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-Type": "application/json"}
+    }).then(async response => {
+      if (response.ok) {
+        const data = await response.json();
+        return userAction.setToken(data.token);
+      } else {
+        userAction.reset();
+      }
+      setTimeout(verifyUser, 5* 60 * 1000);
+    })
+  }, [userAction]);
+
+  React.useEffect(() => {
+    verifyUser();
+  }, [verifyUser]);
+
+  if (userState.token === null) {
     return(
     <Box>
       <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
@@ -51,7 +72,7 @@ export default function Layout() {
         </Routes>
       </Box>
     </Box>
-  )} else {
+  )} else if (userState.token) {
     return (
       <Box>
         <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
@@ -77,6 +98,26 @@ export default function Layout() {
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
           </Routes>
+        </Box>
+      </Box>
+    );
+  } else {
+    return(
+      <Box>
+        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
+
+        <Box
+          sx={{
+            marginLeft: isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(7)} + 1px)`
+              : null,
+            marginTop: !isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(10)} + 1px)`
+              : 5,
+            overflowX: "hidden",
+          }}
+        >
+          <Loader/>
         </Box>
       </Box>
     );
