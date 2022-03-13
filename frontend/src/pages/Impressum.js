@@ -19,7 +19,7 @@ const styles = {
     width: "100%",
   },
   TextField: {
-    opacity: 0.9
+    opacity: 0.7
   }
 };
 
