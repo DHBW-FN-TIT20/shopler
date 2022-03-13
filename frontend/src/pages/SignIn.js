@@ -41,7 +41,7 @@ export default function SignIn() {
           setUserContext.setToken(data.token);
           setUserContext.setUsername(username);
           localStorage.setItem("refreshToken", data.refreshToken);
-          navigate("/Home")
+          navigate("/")
         }
       })
       .catch(error => {

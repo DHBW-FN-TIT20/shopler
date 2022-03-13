@@ -4,12 +4,12 @@ import Box from "@mui/material/Box";
 import Shop from "../pages/Shop";
 import SignIn from "../pages/SignIn";
 import NewArticle from "../pages/NewArticle";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Navigation from "./Navigation";
 import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
-import Impressum from "../pages/Impressum";
+import Inprint from "../pages/Inprint";
 import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
 import { useUserStore } from "../stores/UserStore";
@@ -29,9 +29,9 @@ export default function Layout() {
     fetch(process.env.REACT_APP_API_ENDPOINT + "users/refreshToken", {
       method: "POST",
       credentials: "include",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({refreshToken})
-    }).then(async response => {
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+    }).then(async (response) => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("refreshToken", data.refreshToken);
@@ -39,15 +39,15 @@ export default function Layout() {
       } else {
         userAction.reset();
       }
-      setTimeout(verifyUser, 5* 60 * 1000);
-    })
+      setTimeout(verifyUser, 5 * 60 * 1000);
+    });
   }, [userAction]);
 
   React.useEffect(() => {
     verifyUser();
   }, [verifyUser]);
 
-  return userState.token === null ? (
+  return (
     <Box>
       <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
@@ -62,66 +62,33 @@ export default function Layout() {
           overflowX: "hidden",
         }}
       >
-        <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="shop" element={<SignIn />} />
-          <Route path="newarticle" element={<SignIn />} />
-          <Route path="home" element={<Home />} />
-          <Route path="cart" element={<SignIn />} />
-
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="impressum" element={<Impressum />} />
-          <Route path="privacy" element={<Privacy />} />
-        </Routes>
-      </Box>
-    </Box>
-  ) : userState.token ? (
-      <Box>
-        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
-
-        <Box
-          sx={{
-            marginLeft: isGreaterThanSmallBreakpoint
-              ? `calc(${theme.spacing(7)} + 1px)`
-              : null,
-            marginTop: !isGreaterThanSmallBreakpoint
-              ? `calc(${theme.spacing(10)} + 1px)`
-              : 5,
-            overflowX: "hidden",
-          }}
-        >
+        {userState.token === null || userState.token ? (
           <Routes>
-            <Route path="" element={<Home/>} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="newarticle" element={<NewArticle />} />
-            <Route path="home" element={<Home />} />
-            <Route path="cart" element={<Cart />} />
+            <Route path="" element={<Home />} />
+            <Route
+              path="shop"
+              element={userState.token ? <Shop /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="newarticle"
+              element={
+                userState.token ? <NewArticle /> : <Navigate to="/signin" />
+              }
+            />
+            <Route
+              path="cart"
+              element={userState.token ? <Cart /> : <Navigate to="/signin" />}
+            />
 
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
-            <Route path="impressum" element={<Impressum />} />
+            <Route path="inprint" element={<Inprint />} />
             <Route path="privacy" element={<Privacy />} />
           </Routes>
-        </Box>
+        ) : (
+          <Loader />
+        )}
       </Box>
-    ) : (
-      <Box>
-        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
-
-        <Box
-          sx={{
-            marginLeft: isGreaterThanSmallBreakpoint
-              ? `calc(${theme.spacing(7)} + 1px)`
-              : null,
-            marginTop: !isGreaterThanSmallBreakpoint
-              ? `calc(${theme.spacing(10)} + 1px)`
-              : 5,
-            overflowX: "hidden",
-          }}
-        >
-          <Loader/>
-        </Box>
-      </Box>
-    );
+    </Box>
+  );
 }
