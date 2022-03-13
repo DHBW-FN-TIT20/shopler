@@ -48,7 +48,6 @@ router.post("/login", (req, res, next) => {
             }
             return res.json({message: info.message});
         }
-        console.log("UserID: ", user.id)
         const token = getToken({id: user.id});
         const refreshTokenArr = user.refreshToken;
         const refreshToken = getRefreshToken({id: user.id});
@@ -68,7 +67,6 @@ router.post("/login", (req, res, next) => {
 router.post("/refreshToken", async (req, res, next) => {
 
     const refreshToken = req.body.refreshToken;
-    console.log(refreshToken)
 
     if (refreshToken) {
         try {
@@ -76,7 +74,8 @@ router.post("/refreshToken", async (req, res, next) => {
             const userId = payload.id;
             const user = await User.findOne({where: {id: userId}});
             if (user) {
-                var refreshTokenArray = user.refreshToken;
+                var refreshTokenArray = []
+                refreshTokenArray = user.refreshToken;
                 const tokenIndex = refreshTokenArray.findIndex(item => item === refreshToken)
                 if (tokenIndex === -1) {
                     res.statusCode = 401;
@@ -88,7 +87,7 @@ router.post("/refreshToken", async (req, res, next) => {
                     user.refreshToken = refreshTokenArray;
                     try {
                         user.save();
-                        res.send({success: true, token, refreshToken});
+                        res.send({success: true, token, refreshToken: newRefreshToken});
                     } catch (err) {
                         res.statusCode = 500;
                         res.send(err);

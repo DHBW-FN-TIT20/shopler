@@ -34,6 +34,7 @@ export default function Layout() {
     }).then(async response => {
       if (response.ok) {
         const data = await response.json();
+        localStorage.setItem("refreshToken", data.refreshToken);
         return userAction.setToken(data.token);
       } else {
         userAction.reset();
