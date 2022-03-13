@@ -23,6 +23,7 @@ const { CartItem } = require('./models/cartItems');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRoutes');
+const apiRouter = require('./routes/apiRoutes');
 
 
 var app = express();
@@ -70,12 +71,14 @@ app.use(cors(corsOptions))
 // setup routes
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/api', apiRouter);
 
 // setup database
 try {
   Item.belongsToMany(Category, {through: 'item_cat'});
   Category.belongsToMany(Item, {through: 'item_cat'});
   Item.hasMany(CartItem);
+  Item.belongsTo(User);
   List.hasMany(CartItem);
   User.hasOne(List);
   database.sync({force: true});
