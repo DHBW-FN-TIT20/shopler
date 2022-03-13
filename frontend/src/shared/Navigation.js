@@ -29,7 +29,6 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
 import { useUserStore } from "../stores/UserStore";
-import PropTypes from "prop-types";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -81,7 +80,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-function Navigation({ smallscreen }) {
+export default function Navigation({ smallscreen }) {
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
 
@@ -225,9 +224,3 @@ function Navigation({ smallscreen }) {
     </Box>
   );
 }
-
-Navigation.propTypes = {
-  smallscreen: PropTypes.bool.isRequired
-}
-
-export default Navigation;
