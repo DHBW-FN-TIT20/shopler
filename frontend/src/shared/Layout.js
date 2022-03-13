@@ -10,6 +10,7 @@ import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import Impressum from "../pages/Impressum";
+import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
 import { useUserStore } from "../stores/UserStore";
 import Loader from "./Loader";
@@ -68,6 +69,7 @@ export default function Layout() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="impressum" element={<Impressum />} />
+          <Route path="privacy" element={<Privacy />} />
         </Routes>
       </Box>
     </Box>
@@ -95,6 +97,8 @@ export default function Layout() {
 
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
+            <Route path="impressum" element={<Impressum />} />
+            <Route path="privacy" element={<Privacy />} />
           </Routes>
         </Box>
       </Box>

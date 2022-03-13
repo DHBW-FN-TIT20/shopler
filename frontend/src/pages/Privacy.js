@@ -12,6 +12,7 @@ const styles = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    backgroundAttatchment: "fixed",
   },
   Logo:{
     backgroundRepeat: "no-repeat",
@@ -19,14 +20,17 @@ const styles = {
     width: "100%",
   },
   TextField: {
-    opacity: 0.65
+    opacity: 0.65,
+    marginBottom: 20
   }
 };
 
 export default function StartScreen() {
   return (
     <Container>
-      <Container style={styles.Container} className="FirstView">
+      <view>
+        <Container style={styles.Container} className="FirstView"> </Container>
+      </view>
         <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
           <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
             <img src={Logo} alt="logo" width={"500%"}/>
@@ -73,6 +77,5 @@ export default function StartScreen() {
           </Typography>
         </Container>
       </Container>
-    </Container>
   );
 }
