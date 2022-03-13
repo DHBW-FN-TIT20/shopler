@@ -13,12 +13,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+
 
 // dummyvalues
-const categorys = ["Gemüse", "Obst", "Lebensmittel", "Getränke", "Marmelade"];
+const categorys = ["Gemüse", "Obst", "Lebensmittel", "Getränke"];
 export default function NewArticle() {
   const [categoryName, setCategory] = useState([]);
+  const [open, setOpen] = React.useState();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   /**
    * handles multiple value select add/remove value to React Component State
@@ -59,7 +69,7 @@ export default function NewArticle() {
     <Container component="main" maxWidth="md">
       <CssBaseline />
       <Typography variant="h2" component="h1">
-        Neuer Artikel
+        Artikel hinzufügen
       </Typography>
       <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
@@ -71,7 +81,7 @@ export default function NewArticle() {
           autoFocus
         />
         <FormControl fullWidth margin="normal">
-          <InputLabel>Kategorien</InputLabel>
+          <InputLabel>Kategorie</InputLabel>
           <Select
             labelId="categorys"
             name="categorys"
@@ -109,7 +119,7 @@ export default function NewArticle() {
           variant="contained"
           type="submit"
           startIcon={<Add />}
-          sx={{ float: "right", mt: 3 }}
+          sx={{ float: "right", mt: 3}}
         >
           Hinzufügen
         </Button>
