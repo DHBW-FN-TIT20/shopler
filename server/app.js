@@ -81,7 +81,7 @@ try {
   Item.belongsTo(User);
   List.hasMany(CartItem);
   User.hasOne(List);
-  database.sync({force: true});
+  database.sync();
 } catch (err) {
   console.error(err);
 }

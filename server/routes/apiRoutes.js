@@ -27,7 +27,7 @@ router.get("/newitem", verifyUser, async (req, res, next) => {
     }
     try {
         await database.transaction(async (t) => {
-            const item = await Item.create({name: itemName, discription: itemDescription}, {transaction: t});
+            const item = await Item.create({name: itemName, discription: itemDescription, userId: user.id}, {transaction: t});
             categories.forEach(category => {
                 item.addCategory(category);
             });
