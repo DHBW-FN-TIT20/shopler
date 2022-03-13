@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material"
+import { CircularProgress, Stack } from "@mui/material"
 import React from "react"
 
 
@@ -6,11 +6,21 @@ const Loader = () => {
 
   return (
 
-    <div className="loader">
+    <Stack alignItems="center" 
+    spacing={5}
+    position="fixed" 
+    top="40%" 
+    left="40%" 
+    justifyContent={"center"}
+    size="30"
+    >
 
-      <CircularProgress/>
+      <CircularProgress
+      color="secondary"
+      size={100}
+      />
 
-    </div>
+    </Stack>
 
   )
 
