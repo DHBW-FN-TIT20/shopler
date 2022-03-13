@@ -189,8 +189,8 @@ export default function Navigation(props) {
           )}
           <ListItemButton
             component={Link}
-            to="impressum"
-            selected={location.pathname.startsWith("/impressum")}
+            to="inprint"
+            selected={location.pathname.startsWith("/inprint")}
           >
             <ListItemIcon>
               <Info />
@@ -199,8 +199,8 @@ export default function Navigation(props) {
           </ListItemButton>
           <ListItemButton
             component={Link}
-            to="Privacy"
-            selected={location.pathname.startsWith("/Privacy")}
+            to="privacy"
+            selected={location.pathname.startsWith("/privacy")}
           >
             <ListItemIcon>
               <Feed />

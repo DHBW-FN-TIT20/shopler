@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
-import Impressum from "../pages/Impressum";
+import Inprint from "../pages/Inprint";
 import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
 import { useUserStore } from "../stores/UserStore";
@@ -70,7 +70,7 @@ export default function Layout() {
 
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="impressum" element={<Impressum />} />
+          <Route path="inprint" element={<Inprint />} />
           <Route path="privacy" element={<Privacy />} />
         </Routes>
       </Box>
@@ -99,7 +99,7 @@ export default function Layout() {
 
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
-            <Route path="impressum" element={<Impressum />} />
+            <Route path="impressum" element={<Inprint />} />
             <Route path="privacy" element={<Privacy />} />
           </Routes>
         </Box>
