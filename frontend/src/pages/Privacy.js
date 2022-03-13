@@ -20,7 +20,8 @@ const styles = {
     width: "100%",
   },
   TextField: {
-    opacity: 0.65
+    opacity: 0.65,
+    marginBottom: 20
   }
 };
 
