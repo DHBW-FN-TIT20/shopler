@@ -98,6 +98,21 @@ export default function Navigation({ smallscreen }) {
 
   const [userStore, userAction] = useUserStore();
 
+  const logoutHandler = () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    fetch(process.env.REACT_APP_API_ENDPOINT + "users/logout", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userStore.token}`
+      },
+      body: JSON.stringify({refreshToken})
+    }).then(async response => {
+      userAction.reset();
+    });
+  }
+
   return (
     <Box>
       {!smallscreen ? (
@@ -178,8 +193,7 @@ export default function Navigation({ smallscreen }) {
           <Divider />
           {userStore.token ? (
             <ListItemButton
-              component={Link}
-              to="/"
+              onClick={logoutHandler}
             >
               <ListItemIcon>
                 <Logout />
