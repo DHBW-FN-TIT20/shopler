@@ -177,6 +177,16 @@ export default function Navigation(props) {
             </ListItemIcon>
             <ListItemText>Impressum</ListItemText>
           </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="Privacy"
+            selected={location.pathname.startsWith("/Privacy")}
+          >
+            <ListItemIcon>
+              <Accessibility />
+            </ListItemIcon>
+            <ListItemText>Privacy</ListItemText>
+          </ListItemButton>
         </List>
       </Drawer>
     </Box>
