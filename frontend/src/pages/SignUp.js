@@ -40,6 +40,7 @@ export default function SignUp() {
         }
       } else {
         const data = await response.json();
+        localStorage.setItem("refreshToken", data.refreshToken);
         userAction.setToken(data.token);
         userAction.setUsername(username);
         navigate("/home");

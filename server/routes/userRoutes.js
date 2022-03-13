@@ -4,7 +4,7 @@ const User = require('./../models/users').User;
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
 
-const {getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser} = require('./../bin/auth/authenticate');
+const {getToken, getRefreshToken, verifyUser} = require('./../bin/auth/authenticate');
 const { token } = require('morgan');
 
 router.post("/signup", (req, res, next) => {
@@ -24,8 +24,7 @@ router.post("/signup", (req, res, next) => {
         user.refreshToken = refreshToken;
         try {
             user.save();
-            res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-            res.send({success: true, token});
+            res.send({success: true, token, refreshToken});
         } catch (err) {
             res.statusCode = 500;
             res.send(err);
@@ -57,10 +56,7 @@ router.post("/login", (req, res, next) => {
         user.refreshToken = refreshTokenArr;
         try {
             user.save();
-            res.header('Access-Control-Allow-Credentials', true);
-            res.header("Access-Control-Allow-Headers", "X-Custom-Header");
-            res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-            res.send({success: true, token});
+            res.send({success: true, token, refreshToken});
         } catch (err) {
             res.statusCode = 500;
             res.send(err);
@@ -70,8 +66,9 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/refreshToken", async (req, res, next) => {
-    const {signedCookies = {}} = req;
-    const {refreshToken} = signedCookies;
+
+    const refreshToken = req.body.refreshToken;
+    console.log(refreshToken)
 
     if (refreshToken) {
         try {
@@ -91,10 +88,7 @@ router.post("/refreshToken", async (req, res, next) => {
                     user.refreshToken = refreshTokenArray;
                     try {
                         user.save();
-                        res.header('Access-Control-Allow-Credentials', true);
-                        res.header("Access-Control-Allow-Headers", "X-Custom-Header");
-                        res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
-                        res.send({success: true, token});
+                        res.send({success: true, token, refreshToken});
                     } catch (err) {
                         res.statusCode = 500;
                         res.send(err);
@@ -116,9 +110,8 @@ router.post("/refreshToken", async (req, res, next) => {
     }
 });
 
-router.get("/logout", verifyUser, async (req, res, next) => {
-    const {signedCookies = {}} = req;
-    const {refreshToken} = signedCookies;
+router.post("/logout", verifyUser, async (req, res, next) => {
+    const refreshToken = req.body.refreshToken;
     const user = await req.user;
     if (!user) {
         res.statusCode = 500;
@@ -135,9 +128,6 @@ router.get("/logout", verifyUser, async (req, res, next) => {
     user.refreshToken = refreshTokenArr;
     try {
         user.save();
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header("Access-Control-Allow-Headers", "X-Custom-Header");
-        res.clearCookie("refreshToken", COOKIE_OPTIONS);
         res.send({success: true});
     } catch (err) {
         res.statusCode = 500;

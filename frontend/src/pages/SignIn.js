@@ -40,6 +40,7 @@ export default function SignIn() {
           const data = await response.json();
           setUserContext.setToken(data.token);
           setUserContext.setUsername(username);
+          localStorage.setItem("refreshToken", data.refreshToken);
           navigate("/Home")
         }
       })

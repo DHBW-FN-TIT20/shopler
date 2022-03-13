@@ -25,10 +25,12 @@ export default function Layout() {
   const [userState, userAction] = useUserStore();
 
   const verifyUser = React.useCallback(() => {
+    const refreshToken = localStorage.getItem("refreshToken");
     fetch(process.env.REACT_APP_API_ENDPOINT + "users/refreshToken", {
       method: "POST",
       credentials: "include",
-      headers: {"Content-Type": "application/json"}
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({refreshToken})
     }).then(async response => {
       if (response.ok) {
         const data = await response.json();
