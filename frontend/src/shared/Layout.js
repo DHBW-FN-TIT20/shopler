@@ -43,8 +43,7 @@ export default function Layout() {
     verifyUser();
   }, [verifyUser]);
 
-  if (userState.token === null) {
-    return(
+  return userState.token === null ? (
     <Box>
       <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
@@ -72,8 +71,7 @@ export default function Layout() {
         </Routes>
       </Box>
     </Box>
-  )} else if (userState.token) {
-    return (
+  ) : userState.token ? (
       <Box>
         <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
@@ -100,9 +98,7 @@ export default function Layout() {
           </Routes>
         </Box>
       </Box>
-    );
-  } else {
-    return(
+    ) : (
       <Box>
         <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
@@ -121,5 +117,4 @@ export default function Layout() {
         </Box>
       </Box>
     );
-  }
 }
