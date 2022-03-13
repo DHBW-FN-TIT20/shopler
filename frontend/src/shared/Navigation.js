@@ -166,11 +166,7 @@ export default function Navigation(props) {
         <List sx={{ marginTop: "auto" }}>
           <Divider />
           {userStore.token ?(
-            <ListItemButton
-            component={Link}
-            to="signin"
-            selected={location.pathname.startsWith("/sign")}
-          >
+            <ListItemButton>
             <ListItemIcon>
               <Logout />
             </ListItemIcon>
