@@ -86,7 +86,7 @@ export default function NewArticle() {
             labelId="categorys"
             name="categorys"
             id="categorys"
-            multiple
+            single
             value={categoryName}
             onChange={handleCategoryChange}
             input={<OutlinedInput id="select-categorys" label="Kategorien" />}
