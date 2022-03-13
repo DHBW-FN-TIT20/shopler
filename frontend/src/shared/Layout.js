@@ -4,14 +4,18 @@ import Box from "@mui/material/Box";
 import Shop from "../pages/Shop";
 import SignIn from "../pages/SignIn";
 import NewArticle from "../pages/NewArticle";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Navigation from "./Navigation";
 import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
+import Inprint from "../pages/Inprint";
+import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import MainTheme from "../theme/MainTheme";
+import { useUserStore } from "../stores/UserStore";
+import Loader from "./Loader";
 
 export default function Layout() {
   const theme = useTheme();
@@ -19,6 +23,31 @@ export default function Layout() {
   const isGreaterThanSmallBreakpoint = useMediaQuery(
     theme.breakpoints.up("sm")
   );
+
+  const [userState, userAction] = useUserStore();
+
+  const verifyUser = React.useCallback(() => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    fetch(process.env.REACT_APP_API_ENDPOINT + "users/refreshToken", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+    }).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("refreshToken", data.refreshToken);
+        return userAction.setToken(data.token);
+      } else {
+        userAction.reset();
+      }
+      setTimeout(verifyUser, 5 * 60 * 1000);
+    });
+  }, [userAction]);
+
+  React.useEffect(() => {
+    verifyUser();
+  }, [verifyUser]);
 
   return (
     <ThemeProvider theme={MainTheme}>
@@ -36,15 +65,32 @@ export default function Layout() {
             overflowX: "hidden",
           }}
         >
-          <Routes>
-            <Route path="shop" element={<Shop />} />
-            <Route path="newarticle" element={<NewArticle />} />
-            <Route path="cart" element={<Cart />} />
+          {userState.token === null || userState.token ? (
+            <Routes>
+              <Route path="" element={<Home />} />
+              <Route
+                path="shop"
+                element={userState.token ? <Shop /> : <Navigate to="/signin" />}
+              />
+              <Route
+                path="newarticle"
+                element={
+                  userState.token ? <NewArticle /> : <Navigate to="/signin" />
+                }
+              />
+              <Route
+                path="cart"
+                element={userState.token ? <Cart /> : <Navigate to="/signin" />}
+              />
 
-            <Route path="signin" element={<SignIn />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
+              <Route path="signin" element={<SignIn />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="inprint" element={<Inprint />} />
+              <Route path="privacy" element={<Privacy />} />
+            </Routes>
+          ) : (
+            <Loader />
+          )}
         </Box>
       </React.Fragment>
     </ThemeProvider>

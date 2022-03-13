@@ -1,12 +1,9 @@
 import { Container, Typography, Paper, Grid, Button } from "@mui/material";
 import HowToStepper from "../components/Home/HowToStepper";
-import image from "../img/einkaufen.jpg";
 import CheckBoxes from "../img/Checking-boxes.svg";
 import AboutUs from "../img/About-Us.svg";
 import Tasks from "../img/Tasks.svg";
 import Logo from "../img/logo.svg";
-import { ThemeProvider } from "@emotion/react";
-// import "./Home.css";
 
 const styles = {
   Headline: {

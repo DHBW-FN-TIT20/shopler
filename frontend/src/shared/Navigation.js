@@ -15,15 +15,20 @@ import {
   Typography,
 } from "@mui/material";
 import {
+  Accessibility,
   Add,
+  Feed,
   Home,
+  Info,
   Login,
+  Logout,
   Menu,
   Search,
   ShoppingBag,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
+import { useUserStore } from "../stores/UserStore";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -75,7 +80,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Navigation(props) {
+export default function Navigation({ smallscreen }) {
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
 
@@ -87,9 +92,15 @@ export default function Navigation(props) {
     setOpen(false);
   };
 
+  const state = {
+    isActive: false,
+  };
+
+  const [userStore, userAction] = useUserStore();
+
   return (
     <Box>
-      {!props.smallscreen ? (
+      {!smallscreen ? (
         <AppBar position="fixed">
           <Toolbar>
             <IconButton
@@ -108,7 +119,7 @@ export default function Navigation(props) {
         </AppBar>
       ) : null}
 
-      <Drawer variant="permanent" open={open} smallscreen={props.smallscreen}>
+      <Drawer variant="permanent" open={open} smallscreen={smallscreen.toString()}>
         <DrawerHeader>
           {open === false ? (
             <IconButton color="inherit" onClick={handleDrawerOpen}>
@@ -121,6 +132,16 @@ export default function Navigation(props) {
           )}
         </DrawerHeader>
         <List>
+          <ListItemButton
+            component={Link}
+            to=""
+            selected={"/" === location.pathname}
+          >
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItemButton>
           <ListItemButton
             component={Link}
             to="shop"
@@ -141,9 +162,6 @@ export default function Navigation(props) {
             </ListItemIcon>
             <ListItemText>Artkel hinzufügen</ListItemText>
           </ListItemButton>
-        </List>
-        <Divider />
-        <List sx={{ marginTop: "auto" }}>
           <ListItemButton
             component={Link}
             to="cart"
@@ -154,15 +172,51 @@ export default function Navigation(props) {
             </ListItemIcon>
             <ListItemText>Einkaufsliste</ListItemText>
           </ListItemButton>
+        </List>
+        <Divider />
+        <List sx={{ marginTop: "auto" }}>
+          <Divider />
+          {userStore.token ? (
+            <ListItemButton
+              component={Link}
+              to="/"
+            >
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText>Ausloggen</ListItemText>
+            </ListItemButton>
+          ) : (
+            <ListItemButton
+              component={Link}
+              to="signin"
+              selected={location.pathname.startsWith("/sign")}
+            >
+              <ListItemIcon>
+                <Login />
+              </ListItemIcon>
+              <ListItemText>Login | Registrieren</ListItemText>
+            </ListItemButton>
+          )}
           <ListItemButton
             component={Link}
-            to="signin"
-            selected={location.pathname.startsWith("/sign")}
+            to="inprint"
+            selected={location.pathname.startsWith("/inprint")}
           >
             <ListItemIcon>
-              <Login />
+              <Info />
             </ListItemIcon>
-            <ListItemText>Login/Register</ListItemText>
+            <ListItemText>Impressum</ListItemText>
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="privacy"
+            selected={location.pathname.startsWith("/privacy")}
+          >
+            <ListItemIcon>
+              <Feed />
+            </ListItemIcon>
+            <ListItemText>Privacy</ListItemText>
           </ListItemButton>
         </List>
       </Drawer>
