@@ -1,5 +1,4 @@
-import { Container, Typography, Paper, Button } from "@mui/material";
-import { positions } from "@mui/system";
+import { Container, Typography, Paper } from "@mui/material";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Privacy.css";
@@ -12,7 +11,6 @@ const styles = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    backgroundAttatchment: "fixed",
   },
   Logo:{
     backgroundRepeat: "no-repeat",
@@ -28,10 +26,8 @@ const styles = {
 export default function StartScreen() {
   return (
     <Container>
-      <view>
-        <Container style={styles.Container} className="FirstView"> </Container>
-      </view>
-        <Container maxWidth="60%" component={Paper} variant={"outlined"} style={styles.TextField}>
+        <Container style={styles.Container} className="FirstView"> 
+        <Container maxWidth="55%" component={Paper} variant={"outlined"} style={styles.TextField}>
           <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
             <img src={Logo} alt="logo" width={"500%"}/>
           </Typography>
@@ -77,5 +73,6 @@ export default function StartScreen() {
           </Typography>
         </Container>
       </Container>
+    </Container>
   );
 }

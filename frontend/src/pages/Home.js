@@ -1,5 +1,5 @@
-import { Container, Typography, Paper, Button } from "@mui/material";
-import { positions } from "@mui/system";
+import { Container, Typography, Paper } from "@mui/material";
+import { Link } from "react-router-dom";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Home.css";
@@ -33,13 +33,27 @@ export default function StartScreen() {
             <img src={Logo} alt="logo" width={"500%"}/>
           </Typography>
           <Typography textAlign={"center"} variant="h2">
-            Hier steht unsere Geschichte
+            Unsere Geschichte
           </Typography>
           <Typography textAlign={"center"}>
-            Haben wir ihr Interesse geweckt?
+            Wir sind drei Studenten der DHBW und haben alle das gleiche Alltagsproblem: Wir müssen Einkaufen gehen. 
+            Unvorbereitet gibt es hierbei leider so gut wie immer das Problem, dass wir Sachen kaufen, welche wir nicht 
+            benötigen oder wir laufen unnötigerweise sehr Lange durch ein Geschäft. Um dieses Problem zu Lösen 
+            gibt es den Ansatz einer Einkaufsliste. Da wir allerdings keine Lust auf Papierverschwendung haben, 
+            haben wir uns dazu entschieden eine eigene Anwendung für solch eine Einkaufsliste zu Programmieren. 
+            Diese soll uns helfen organisierter Einzukaufen und nur das zu kaufen, was wir auch wirklich benötigen.
+            Somit sparen wir uns die Zeit lange im Geschäft nachzudenken, da wir das bereits Zuhause getan haben. 
+            Außerdem gibt es die Möglichkeit Einkaufslisten zu speichern und diese jederzeit abzurufen. Hierdurch können 
+            Listen für Rezepte, den Alltagsbedarf und sonstiges angelegt und jederzeit abgerufen werden. Unser Ziel ist es 
+            den Einkauf durch diese Anwendung effizienter zu gestalten und unsere Zeit wichtigeren Dingen zu widmen. <br /> <br />
           </Typography>
           <Typography>
-            Registrieren Sie sich hier.
+            Haben wir Ihr Interessen geweckt?
+          </Typography>
+          <Typography>
+            <Link to={{pathname: "/signup"}}>
+              Registrieren sie sich hier.
+            </Link>
           </Typography>
         </Container>
       </Container>

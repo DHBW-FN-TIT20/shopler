@@ -18,7 +18,7 @@ export default function SignIn() {
     setIsSubmitting(true);
     setError("");
 
-    const genericErrorMessage = "Something went wrong! Please try again later.";
+    const genericErrorMessage = "Etwas ist schief gelaufen. Versuchen Sie es erneut.";
 
     fetch(process.env.REACT_APP_API_ENDPOINT + "users/login", {
       method: "POST",
@@ -30,9 +30,9 @@ export default function SignIn() {
         setIsSubmitting(false);
         if (!response.ok) {
           if (response.status === 400) {
-            setError("Please fill all the fields correctly!");
+            setError("Bitte füllen Sie alle Felder korrekt aus.");
           } else if (response.status === 401) {
-            setError("Invalid email and password combination.");
+            setError("Ungültige E-Mail und Passwort kombination");
           } else {
             setError(genericErrorMessage);
           }
@@ -71,7 +71,7 @@ export default function SignIn() {
               required
               fullWidth
               id="username"
-              label="Username"
+              label="Benutzername"
               name="Username"
               autoComplete="username"
               autoFocus
@@ -83,7 +83,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Passwort"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -92,7 +92,7 @@ export default function SignIn() {
             />
             <Typography>
               <Link to={{pathname: "/signup"}}>
-                  Don't have an account? Sign Up
+                  Sie haben noch keinen Account?
               </Link>
             </Typography>
             <Button
