@@ -36,6 +36,7 @@ export default function StartScreen() {
             Unsere Geschichte
           </Typography>
           <Typography textAlign={"center"}>
+            <h4>
             Wir sind drei Studenten der DHBW und haben alle das gleiche Alltagsproblem: Wir müssen Einkaufen gehen. 
             Unvorbereitet gibt es hierbei leider so gut wie immer das Problem, dass wir Sachen kaufen, welche wir nicht 
             benötigen oder wir laufen unnötigerweise sehr lange durch ein Geschäft. Um dieses Problem zu lösen 
@@ -46,6 +47,7 @@ export default function StartScreen() {
             Außerdem gibt es die Möglichkeit Einkaufslisten zu speichern und diese jederzeit abzurufen. Hierdurch können 
             Listen für Rezepte, den Alltagsbedarf und Sonstiges angelegt und jederzeit abgerufen werden. Unser Ziel ist es 
             den Einkauf durch diese Anwendung effizienter zu gestalten und unsere Zeit wichtigeren Dingen zu widmen. <br /> <br />
+            </h4>
           </Typography>
           <Typography>
             Haben wir Ihr Interesse geweckt?
