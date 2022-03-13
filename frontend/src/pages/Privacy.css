@@ -2,7 +2,7 @@
     content: "";
     height: 100%;
     width: 100%;
-    background-image: var(--image);
+    background-color: white;
     background-size: cover;
     background-position: fixed;
     background-repeat: no-repeat;

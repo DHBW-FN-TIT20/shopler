@@ -5,7 +5,6 @@ import "./Privacy.css";
 
 const styles = {
   Container: {
-    "--image": `url(${image})`,
     height: "100%",
     width: "100%",
     backgroundSize: "cover",
@@ -18,8 +17,9 @@ const styles = {
     width: "100%",
   },
   TextField: {
-    opacity: 0.65,
-    marginBottom: 20
+    backgroundColor: "rgb(200, 200, 200)",
+    marginBottom: 20,
+    padding: 50
   }
 };
 
@@ -28,9 +28,7 @@ export default function StartScreen() {
     <Container>
         <Container style={styles.Container} className="FirstView"> 
         <Container maxWidth="55%" component={Paper} variant={"outlined"} style={styles.TextField}>
-          <Typography textAlign={"center"} alignContent={"center"} height={"35vh"} width={"20%"} variant="h2">
-            <img src={Logo} alt="logo" width={"500%"}/>
-          </Typography>
+          <img src={Logo} alt="logo" width={"40%"} style={{display: "block", margin: "auto"}} />
           <Typography>
             <h2>Datenschutzerklärung</h2>
             <h2 id="m14">Einleitung</h2>
