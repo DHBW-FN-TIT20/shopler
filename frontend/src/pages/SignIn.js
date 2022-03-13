@@ -38,7 +38,6 @@ export default function SignIn() {
           }
         } else {
           const data = await response.json();
-          console.log("Request Token: ", data.token);
           setUserContext.setToken(data.token);
           setUserContext.setUsername(username);
           navigate("/Home")
