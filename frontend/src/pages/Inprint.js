@@ -6,28 +6,28 @@ export default function Privacy() {
       <Typography textAlign={"center"} variant="h2">
         Impressum
       </Typography>
-      <Typography paragraph={true}>Shopler GmbH</Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>Shopler GmbH</Typography>
+      <Typography paragraph>
         Anschrift: <br />
         Shopler GmbH <br />
         Shopstraße 54 <br />
         88046 Friedrichshafen{" "}
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Kontaktaufnahme: <br />
         E-Mail : Shopler@shop.de <br />
         Telefon : 0123 456789
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Umsatzsteuer-ID <br />-
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Umsatzsteuer-Identifikationsnummer gem. § 27 a Umsatzsteuergesetz:{" "}
         <br />
         DE XXX XXX XXX
       </Typography>
       <Typography variant="h5">Haftungsausschluss - Disclaimer</Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Haftung für Inhalte <br />
         Alle Inhalte unseres Internetauftritts wurden mit größter Sorgfalt und
         nach bestem Gewissen erstellt. Für die Richtigkeit, Vollständigkeit und
@@ -40,7 +40,7 @@ export default function Privacy() {
         hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
         Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der
         Kenntniserlangung einer konkreten Rechtsverletzung möglich. Bei
         Bekanntwerden von den o.g. Rechtsverletzungen werden wir diese Inhalte
@@ -49,7 +49,7 @@ export default function Privacy() {
       <Typography variant="h5">
         Haftungsbeschränkung für externe Links
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Unsere Webseite enthält Links auf externe Webseiten Dritter. Auf die
         Inhalte dieser direkt oder indirekt verlinkten Webseiten haben wir
         keinen Einfluss. Daher können wir für die „externen Links“ auch keine
@@ -77,7 +77,7 @@ export default function Privacy() {
         unverzüglich entfernt.
       </Typography>
       <Typography variant="h5">Urheberrecht</Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Die auf unserer Webseite veröffentlichen Inhalte und Werke unterliegen
         dem deutschen Urheberrecht (
         <Link

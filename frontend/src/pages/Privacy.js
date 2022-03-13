@@ -9,7 +9,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m14">
         Einleitung
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Mit der folgenden Datenschutzerklärung möchten wir Sie darüber
         aufklären, welche Arten Ihrer personenbezogenen Daten (nachfolgend auch
         kurz als "Daten“ bezeichnet) wir zu welchen Zwecken und in welchem
@@ -20,10 +20,10 @@ export default function Privacy() {
         Onlinepräsenzen, wie z.B. unserer Social-Media-Profile (nachfolgend
         zusammenfassend bezeichnet als "Onlineangebot“).
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Die verwendeten Begriffe sind nicht geschlechtsspezifisch.
       </Typography>
-      <Typography paragraph={true}>Stand: 13. März 2022</Typography>
+      <Typography paragraph>Stand: 13. März 2022</Typography>
       <Typography variant="h5">Inhaltsübersicht</Typography>
       <ul>
         <li>
@@ -100,20 +100,20 @@ export default function Privacy() {
       <Typography variant="h5" id="m3">
         Verantwortlicher
       </Typography>
-      <Typography paragraph={true}>
+      <Typography paragraph>
         Shopler GmbH
         <br />
         Shopstraße 54
         <br />
         88046 Friedrichshafen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         E-Mail-Adresse: <a href="mailto:info@shopler.de">info@shopler.de</a>
       </Typography>
       <Typography variant="h5" id="mOverview">
         Übersicht der Verarbeitungen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und
         die Zwecke ihrer Verarbeitung zusammen und verweist auf die betroffenen
         Personen.
@@ -150,7 +150,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m13">
         Maßgebliche Rechtsgrundlagen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Im Folgenden erhalten Sie eine Übersicht der Rechtsgrundlagen der DSGVO,
         auf deren Basis wir personenbezogene Daten verarbeiten. Bitte nehmen Sie
         zur Kenntnis, dass neben den Regelungen der DSGVO nationale
@@ -186,7 +186,7 @@ export default function Privacy() {
           Person, die den Schutz personenbezogener Daten erfordern, überwiegen.
         </li>
       </ul>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Zusätzlich zu den Datenschutzregelungen der Datenschutz-Grundverordnung
         gelten nationale Regelungen zum Datenschutz in Deutschland. Hierzu
         gehört insbesondere das Gesetz zum Schutz vor Missbrauch
@@ -206,7 +206,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m27">
         Sicherheitsmaßnahmen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir treffen nach Maßgabe der gesetzlichen Vorgaben unter
         Berücksichtigung des Stands der Technik, der Implementierungskosten und
         der Art, des Umfangs, der Umstände und der Zwecke der Verarbeitung sowie
@@ -215,7 +215,7 @@ export default function Privacy() {
         technische und organisatorische Maßnahmen, um ein dem Risiko
         angemessenes Schutzniveau zu gewährleisten.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Zu den Maßnahmen gehören insbesondere die Sicherung der Vertraulichkeit,
         Integrität und Verfügbarkeit von Daten durch Kontrolle des physischen
         und elektronischen Zugangs zu den Daten als auch des sie betreffenden
@@ -231,14 +231,14 @@ export default function Privacy() {
       <Typography variant="h5" id="m12">
         Löschung von Daten
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Die von uns verarbeiteten Daten werden nach Maßgabe der gesetzlichen
         Vorgaben gelöscht, sobald deren zur Verarbeitung erlaubten
         Einwilligungen widerrufen werden oder sonstige Erlaubnisse entfallen
         (z.B. wenn der Zweck der Verarbeitung dieser Daten entfallen ist oder
         sie für den Zweck nicht erforderlich sind).
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Sofern die Daten nicht gelöscht werden, weil sie für andere und
         gesetzlich zulässige Zwecke erforderlich sind, wird deren Verarbeitung
         auf diese Zwecke beschränkt. D.h., die Daten werden gesperrt und nicht
@@ -248,7 +248,7 @@ export default function Privacy() {
         Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen
         oder juristischen Person erforderlich ist.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Unsere Datenschutzhinweise können ferner weitere Angaben zu der
         Aufbewahrung und Löschung von Daten beinhalten, die für die jeweiligen
         Verarbeitungen vorrangig gelten.
@@ -256,7 +256,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m134">
         Einsatz von Cookies
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Cookies sind kleine Textdateien, bzw. sonstige Speichervermerke, die
         Informationen auf Endgeräten speichern und Informationen aus den
         Endgeräten auslesen. Z.B. um den Login-Status in einem Nutzerkonto,
@@ -266,7 +266,7 @@ export default function Privacy() {
         der Funktionsfähigkeit, Sicherheit und Komfort von Onlineangeboten sowie
         der Erstellung von Analysen der Besucherströme.{" "}
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>Hinweise zur Einwilligung: </strong>Wir setzen Cookies im
         Einklang mit den gesetzlichen Vorschriften ein. Daher holen wir von den
         Nutzern eine vorhergehende Einwilligung ein, außer wenn diese gesetzlich
@@ -278,7 +278,7 @@ export default function Privacy() {
         Nutzern deutlich kommuniziert und enthält die Informationen zu der
         jeweiligen Cookie-Nutzung.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>Hinweise zu datenschutzrechtlichen Rechtsgrundlagen: </strong>
         Auf welcher datenschutzrechtlichen Rechtsgrundlage wir die
         personenbezogenen Daten der Nutzer mit Hilfe von Cookies verarbeiten,
@@ -294,7 +294,7 @@ export default function Privacy() {
         darüber klären wir im Laufe dieser Datenschutzerklärung oder im Rahmen
         von unseren Einwilligungs- und Verarbeitungsprozessen auf.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>Speicherdauer: </strong>Im Hinblick auf die Speicherdauer werden
         die folgenden Arten von Cookies unterschieden:
       </Typography>
@@ -320,7 +320,7 @@ export default function Privacy() {
           zwei Jahre betragen kann.
         </li>
       </ul>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>
           Allgemeine Hinweise zum Widerruf und Widerspruch (Opt-Out):{" "}
         </strong>
@@ -331,7 +331,7 @@ export default function Privacy() {
         Datenschutzerklärung). Nutzer können Ihren Widerspruch auch mittels der
         Einstellungen Ihres Browsers erklären.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>
           Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:
         </strong>
@@ -364,7 +364,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m317">
         Geschäftliche Leistungen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir verarbeiten Daten unserer Vertrags- und Geschäftspartner, z.B.
         Kunden und Interessenten (zusammenfassend bezeichnet als
         "Vertragspartner") im Rahmen von vertraglichen und vergleichbaren
@@ -372,7 +372,7 @@ export default function Privacy() {
         Kommunikation mit den Vertragspartnern (oder vorvertraglich), z.B., um
         Anfragen zu beantworten.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir verarbeiten diese Daten, um unsere vertraglichen Verpflichtungen zu
         erfüllen. Dazu gehören insbesondere die Verpflichtungen zur Erbringung
         der vereinbarten Leistungen, etwaige Aktualisierungspflichten und
@@ -393,13 +393,13 @@ export default function Privacy() {
         Formen der Verarbeitung, z.B. zu Marketingzwecken, werden die
         Vertragspartner im Rahmen dieser Datenschutzerklärung informiert.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Welche Daten für die vorgenannten Zwecke erforderlich sind, teilen wir
         den Vertragspartnern vor oder im Rahmen der Datenerhebung, z.B. in
         Onlineformularen, durch besondere Kennzeichnung (z.B. Farben) bzw.
         Symbole (z.B. Sternchen o.ä.), oder persönlich mit.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir löschen die Daten nach Ablauf gesetzlicher Gewährleistungs- und
         vergleichbarer Pflichten, d.h., grundsätzlich nach Ablauf von 4 Jahren,
         es sei denn, dass die Daten in einem Kundenkonto gespeichert werden,
@@ -409,14 +409,14 @@ export default function Privacy() {
         wurden, löschen wir entsprechend den Vorgaben des Auftrags,
         grundsätzlich nach Ende des Auftrags.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Soweit wir zur Erbringung unserer Leistungen Drittanbieter oder
         Plattformen einsetzen, gelten im Verhältnis zwischen den Nutzern und den
         Anbietern die Geschäftsbedingungen und Datenschutzhinweise der
         jeweiligen Drittanbieter oder Plattformen.{" "}
       </Typography>
       <Typography variant="h5">Shop und E-Commerce</Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
       Wir verarbeiten die Daten unserer Kunden, um ihnen die Auswahl, den
       Erwerb, bzw. die Bestellung der gewählten Produkte, Waren sowie
       verbundener Leistungen, als auch deren Bezahlung und Zustellung, bzw.
@@ -460,7 +460,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m225">
         Bereitstellung des Onlineangebotes und Webhosting
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Um unser Onlineangebot sicher und effizient bereitstellen zu können,
         nehmen wir die Leistungen von einem oder mehreren Webhosting-Anbietern
         in Anspruch, von deren Servern (bzw. von ihnen verwalteten Servern) das
@@ -469,7 +469,7 @@ export default function Privacy() {
         Speicherplatz und Datenbankdienste sowie Sicherheitsleistungen und
         technische Wartungsleistungen in Anspruch nehmen.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Zu den im Rahmen der Bereitstellung des Hostingangebotes verarbeiteten
         Daten können alle die Nutzer unseres Onlineangebotes betreffenden
         Angaben gehören, die im Rahmen der Nutzung und der Kommunikation
@@ -498,7 +498,7 @@ export default function Privacy() {
           1 S. 1 lit. f. DSGVO).
         </li>
       </ul>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>
           Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:
         </strong>
@@ -528,14 +528,14 @@ export default function Privacy() {
       <Typography variant="h5" id="m182">
         Kontakt- und Anfragenverwaltung
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Bei der Kontaktaufnahme mit uns (z.B. per Kontaktformular, E-Mail,
         Telefon oder via soziale Medien) sowie im Rahmen bestehender Nutzer- und
         Geschäftsbeziehungen werden die Angaben der anfragenden Personen
         verarbeitet soweit dies zur Beantwortung der Kontaktanfragen und
         etwaiger angefragter Maßnahmen erforderlich ist.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Die Beantwortung der Kontaktanfragen sowie die Verwaltung von Kontakt-
         und Anfragedaten im Rahmen von vertraglichen oder vorvertraglichen
         Beziehungen erfolgt zur Erfüllung unserer vertraglichen Pflichten oder
@@ -583,14 +583,14 @@ export default function Privacy() {
       <Typography variant="h5" id="m328">
         Plugins und eingebettete Funktionen sowie Inhalte
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir binden in unser Onlineangebot Funktions- und Inhaltselemente ein,
         die von den Servern ihrer jeweiligen Anbieter (nachfolgend bezeichnet
         als "Drittanbieter”) bezogen werden. Dabei kann es sich zum Beispiel um
         Grafiken, Videos oder Stadtpläne handeln (nachfolgend einheitlich
         bezeichnet als "Inhalte”).
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Die Einbindung setzt immer voraus, dass die Drittanbieter dieser Inhalte
         die IP-Adresse der Nutzer verarbeiten, da sie ohne die IP-Adresse die
         Inhalte nicht an deren Browser senden könnten. Die IP-Adresse ist damit
@@ -608,7 +608,7 @@ export default function Privacy() {
         enthalten als auch mit solchen Informationen aus anderen Quellen
         verbunden werden.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         <strong>Hinweise zu Rechtsgrundlagen:</strong> Sofern wir die Nutzer um
         deren Einwilligung in den Einsatz der Drittanbieter bitten, ist die
         Rechtsgrundlage der Verarbeitung von Daten die Einwilligung. Ansonsten
@@ -636,7 +636,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m15">
         Änderung und Aktualisierung der Datenschutzerklärung
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Wir bitten Sie, sich regelmäßig über den Inhalt unserer
         Datenschutzerklärung zu informieren. Wir passen die Datenschutzerklärung
         an, sobald die Änderungen der von uns durchgeführten Datenverarbeitungen
@@ -644,14 +644,14 @@ export default function Privacy() {
         Änderungen eine Mitwirkungshandlung Ihrerseits (z.B. Einwilligung) oder
         eine sonstige individuelle Benachrichtigung erforderlich wird.
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Sofern wir in dieser Datenschutzerklärung Adressen und
         Kontaktinformationen von Unternehmen und Organisationen angeben, bitten
         wir zu beachten, dass die Adressen sich über die Zeit ändern können und
         bitten die Angaben vor Kontaktaufnahme zu prüfen.
       </Typography>
       <Typography id="m10">Rechte der betroffenen Personen</Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         Ihnen stehen als Betroffene nach der DSGVO verschiedene Rechte zu, die
         sich insbesondere aus Art. 15 bis 21 DSGVO ergeben:
       </Typography>
@@ -717,7 +717,7 @@ export default function Privacy() {
       <Typography variant="h5" id="m42">
         Begriffsdefinitionen
       </Typography>
-      <Typography paragraph={"true"}>
+      <Typography paragraph>
         In diesem Abschnitt erhalten Sie eine Übersicht über die in dieser
         Datenschutzerklärung verwendeten Begrifflichkeiten. Viele der Begriffe
         sind dem Gesetz entnommen und vor allem im Art. 4 DSGVO definiert. Die

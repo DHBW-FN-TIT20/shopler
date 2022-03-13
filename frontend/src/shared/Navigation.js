@@ -14,10 +14,22 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Accessibility, Add, Feed, Home, Info, Login, Logout, Menu, Search, ShoppingBag} from "@mui/icons-material";
+import {
+  Accessibility,
+  Add,
+  Feed,
+  Home,
+  Info,
+  Login,
+  Logout,
+  Menu,
+  Search,
+  ShoppingBag,
+} from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
-import {useUserStore } from "../stores/UserStore";
+import { useUserStore } from "../stores/UserStore";
+import PropTypes from "prop-types";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -69,7 +81,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Navigation(props) {
+function Navigation({ smallscreen }) {
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
 
@@ -82,14 +94,14 @@ export default function Navigation(props) {
   };
 
   const state = {
-    isActive:false
+    isActive: false,
   };
 
   const [userStore, userAction] = useUserStore();
 
   return (
     <Box>
-      {!props.smallscreen ? (
+      {!smallscreen ? (
         <AppBar position="fixed">
           <Toolbar>
             <IconButton
@@ -108,7 +120,7 @@ export default function Navigation(props) {
         </AppBar>
       ) : null}
 
-      <Drawer variant="permanent" open={open} smallscreen={props.smallscreen}>
+      <Drawer variant="permanent" open={open} smallscreen={smallscreen.toString()}>
         <DrawerHeader>
           {open === false ? (
             <IconButton color="inherit" onClick={handleDrawerOpen}>
@@ -126,11 +138,11 @@ export default function Navigation(props) {
             to="home"
             selected={"/home" === location.pathname}
           >
-          <ListItemIcon>
-            <Home />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </ListItemButton>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItemButton>
           <ListItemButton
             component={Link}
             to="shop"
@@ -165,27 +177,28 @@ export default function Navigation(props) {
         <Divider />
         <List sx={{ marginTop: "auto" }}>
           <Divider />
-          {userStore.token ?(
+          {userStore.token ? (
             <ListItemButton
-            component={Link}
-            to="home"
-            selected={location.pathname.startsWith("/home")}>
-            <ListItemIcon>
-              <Logout />
-            </ListItemIcon>
-            <ListItemText>Ausloggen</ListItemText>
-          </ListItemButton>
+              component={Link}
+              to="home"
+              selected={location.pathname.startsWith("/home")}
+            >
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText>Ausloggen</ListItemText>
+            </ListItemButton>
           ) : (
             <ListItemButton
-            component={Link}
-            to="signin"
-            selected={location.pathname.startsWith("/sign")}
+              component={Link}
+              to="signin"
+              selected={location.pathname.startsWith("/sign")}
             >
-            <ListItemIcon>
-              <Login />
-            </ListItemIcon>
-            <ListItemText>Login | Registrieren</ListItemText>
-          </ListItemButton>
+              <ListItemIcon>
+                <Login />
+              </ListItemIcon>
+              <ListItemText>Login | Registrieren</ListItemText>
+            </ListItemButton>
           )}
           <ListItemButton
             component={Link}
@@ -212,3 +225,9 @@ export default function Navigation(props) {
     </Box>
   );
 }
+
+Navigation.propTypes = {
+  smallscreen: PropTypes.bool.isRequired
+}
+
+export default Navigation;
