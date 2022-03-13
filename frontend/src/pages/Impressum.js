@@ -1,5 +1,4 @@
-import { Container, Typography, Paper, Button } from "@mui/material";
-import { positions } from "@mui/system";
+import { Container, Typography, Paper } from "@mui/material";
 import image from "../img/einkaufen.jpg";
 import Logo from "../img/logo.svg";
 import "./Impressum.css";
