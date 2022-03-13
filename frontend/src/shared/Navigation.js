@@ -110,6 +110,7 @@ export default function Navigation({ smallscreen }) {
       body: JSON.stringify({refreshToken})
     }).then(async response => {
       userAction.reset();
+      localStorage.removeItem("refreshToken");
     });
   }
 
