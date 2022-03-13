@@ -12,6 +12,8 @@ import Home from "../pages/Home";
 import Inprint from "../pages/Inprint";
 import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import MainTheme from "../theme/MainTheme";
 import { useUserStore } from "../stores/UserStore";
 import Loader from "./Loader";
 
@@ -48,47 +50,49 @@ export default function Layout() {
   }, [verifyUser]);
 
   return (
-    <Box>
-      <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
+    <ThemeProvider theme={MainTheme}>
+      <React.Fragment>
+        <Navigation smallscreen={isGreaterThanSmallBreakpoint} />
 
-      <Box
-        sx={{
-          marginLeft: isGreaterThanSmallBreakpoint
-            ? `calc(${theme.spacing(7)} + 1px)`
-            : null,
-          marginTop: !isGreaterThanSmallBreakpoint
-            ? `calc(${theme.spacing(10)} + 1px)`
-            : 5,
-          overflowX: "hidden",
-        }}
-      >
-        {userState.token === null || userState.token ? (
-          <Routes>
-            <Route path="" element={<Home />} />
-            <Route
-              path="shop"
-              element={userState.token ? <Shop /> : <Navigate to="/signin" />}
-            />
-            <Route
-              path="newarticle"
-              element={
-                userState.token ? <NewArticle /> : <Navigate to="/signin" />
-              }
-            />
-            <Route
-              path="cart"
-              element={userState.token ? <Cart /> : <Navigate to="/signin" />}
-            />
+        <Box
+          sx={{
+            marginLeft: isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(7)} + 1px)`
+              : null,
+            marginTop: !isGreaterThanSmallBreakpoint
+              ? `calc(${theme.spacing(10)} + 1px)`
+              : 5,
+            overflowX: "hidden",
+          }}
+        >
+          {userState.token === null || userState.token ? (
+            <Routes>
+              <Route path="" element={<Home />} />
+              <Route
+                path="shop"
+                element={userState.token ? <Shop /> : <Navigate to="/signin" />}
+              />
+              <Route
+                path="newarticle"
+                element={
+                  userState.token ? <NewArticle /> : <Navigate to="/signin" />
+                }
+              />
+              <Route
+                path="cart"
+                element={userState.token ? <Cart /> : <Navigate to="/signin" />}
+              />
 
-            <Route path="signin" element={<SignIn />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="inprint" element={<Inprint />} />
-            <Route path="privacy" element={<Privacy />} />
-          </Routes>
-        ) : (
-          <Loader />
-        )}
-      </Box>
-    </Box>
+              <Route path="signin" element={<SignIn />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="inprint" element={<Inprint />} />
+              <Route path="privacy" element={<Privacy />} />
+            </Routes>
+          ) : (
+            <Loader />
+          )}
+        </Box>
+      </React.Fragment>
+    </ThemeProvider>
   );
 }
