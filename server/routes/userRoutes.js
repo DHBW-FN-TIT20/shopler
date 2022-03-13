@@ -110,8 +110,9 @@ router.post("/refreshToken", async (req, res, next) => {
 });
 
 router.post("/logout", verifyUser, async (req, res, next) => {
-    const refreshToken = req.body.refreshToken;
+    const refreshToken = await req.body.refreshToken;
     const user = await req.user;
+    console.log(user.id)
     if (!user) {
         res.statusCode = 500;
         return res.send("User not found.");

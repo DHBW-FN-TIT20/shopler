@@ -1,0 +1,27 @@
+.FirstView::before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-color: rgb(165, 165, 165);
+    background-position: fixed;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: blur(10px);
+    left: 0;
+    top: 0;
+    position: fixed;
+    z-index: -1;
+}
+
+.FirstView {
+    height: "50vh";
+}
+.inner-container{
+    width:500px;
+    height:500px;
+    position:absolute;
+    top:calc(20vh);
+    left:calc(50vw);
+    overflow:hidden;
+  }
