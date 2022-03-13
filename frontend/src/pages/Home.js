@@ -38,21 +38,21 @@ export default function StartScreen() {
           <Typography textAlign={"center"}>
             Wir sind drei Studenten der DHBW und haben alle das gleiche Alltagsproblem: Wir müssen Einkaufen gehen. 
             Unvorbereitet gibt es hierbei leider so gut wie immer das Problem, dass wir Sachen kaufen, welche wir nicht 
-            benötigen oder wir laufen unnötigerweise sehr Lange durch ein Geschäft. Um dieses Problem zu Lösen 
+            benötigen oder wir laufen unnötigerweise sehr lange durch ein Geschäft. Um dieses Problem zu lösen 
             gibt es den Ansatz einer Einkaufsliste. Da wir allerdings keine Lust auf Papierverschwendung haben, 
-            haben wir uns dazu entschieden eine eigene Anwendung für solch eine Einkaufsliste zu Programmieren. 
-            Diese soll uns helfen organisierter Einzukaufen und nur das zu kaufen, was wir auch wirklich benötigen.
+            haben wir uns dazu entschieden eine eigene Anwendung für solch eine Einkaufsliste zu programmieren. 
+            Diese soll uns helfen organisierter einzukaufen und nur das zu kaufen, was wir auch wirklich benötigen.
             Somit sparen wir uns die Zeit lange im Geschäft nachzudenken, da wir das bereits Zuhause getan haben. 
             Außerdem gibt es die Möglichkeit Einkaufslisten zu speichern und diese jederzeit abzurufen. Hierdurch können 
-            Listen für Rezepte, den Alltagsbedarf und sonstiges angelegt und jederzeit abgerufen werden. Unser Ziel ist es 
+            Listen für Rezepte, den Alltagsbedarf und Sonstiges angelegt und jederzeit abgerufen werden. Unser Ziel ist es 
             den Einkauf durch diese Anwendung effizienter zu gestalten und unsere Zeit wichtigeren Dingen zu widmen. <br /> <br />
           </Typography>
           <Typography>
-            Haben wir Ihr Interessen geweckt?
+            Haben wir Ihr Interesse geweckt?
           </Typography>
           <Typography>
             <Link to={{pathname: "/signup"}}>
-              Registrieren sie sich hier.
+              Registrieren Sie sich hier.
             </Link>
           </Typography>
         </Container>
