@@ -14,9 +14,10 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Accessibility, Add, Feed, Home, Info, Login, Menu, Search, ShoppingBag} from "@mui/icons-material";
+import { Accessibility, Add, Feed, Home, Info, Login, Logout, Menu, Search, ShoppingBag} from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
+import {useUserStore } from "../stores/UserStore";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -79,6 +80,12 @@ export default function Navigation(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const state = {
+    isActive:false
+  };
+
+  const [userStore, userAction] = useUserStore();
 
   return (
     <Box>
@@ -158,16 +165,29 @@ export default function Navigation(props) {
         <Divider />
         <List sx={{ marginTop: "auto" }}>
           <Divider />
-          <ListItemButton
+          {userStore.token ?(
+            <ListItemButton
             component={Link}
             to="signin"
             selected={location.pathname.startsWith("/sign")}
           >
             <ListItemIcon>
+              <Logout />
+            </ListItemIcon>
+            <ListItemText>Ausloggen</ListItemText>
+          </ListItemButton>
+          ) : (
+            <ListItemButton
+            component={Link}
+            to="signin"
+            selected={location.pathname.startsWith("/sign")}
+            >
+            <ListItemIcon>
               <Login />
             </ListItemIcon>
             <ListItemText>Login/Register</ListItemText>
           </ListItemButton>
+          )}
           <ListItemButton
             component={Link}
             to="impressum"
