@@ -12,10 +12,18 @@ require('dotenv').config();
 require('./bin/strategies/LocalStrategy');
 require('./bin/strategies/JwtStrategy');
 require('./bin/auth/authenticate')
+
+// Import models
+const { database } = require("./bin/db/connect");
 const { User } = require('./models/users');
+const { Item } = require('./models/items');
+const { Category } = require('./models/categories')
+const { List } = require('./models/lists');
+const { CartItem } = require('./models/cartItems');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRoutes');
+
 
 var app = express();
 
@@ -65,7 +73,12 @@ app.use('/users', userRouter);
 
 // setup database
 try {
-  User.sync();
+  Item.belongsToMany(Category, {through: 'item_cat'});
+  Category.belongsToMany(Item, {through: 'item_cat'});
+  Item.hasMany(CartItem);
+  List.hasMany(CartItem);
+  User.hasOne(List);
+  database.sync({force: true});
 } catch (err) {
   console.error(err);
 }
