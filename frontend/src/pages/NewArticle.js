@@ -14,13 +14,21 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useUserStore } from "../stores/UserStore";
+import getCategories from "../api/Categories";
 
 
 // dummyvalues
 const categorys = ["Gemüse", "Obst", "Lebensmittel", "Getränke"];
 export default function NewArticle() {
-  const [categoryName, setCategory] = useState([]);
   const [open, setOpen] = React.useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [userStore, userAction] = useUserStore();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [articleName, setArticleName] = useState("");
+  const [description, setDescription] = useState("");
+  const [categoryName, setCategory] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,25 +53,52 @@ export default function NewArticle() {
     );
   };
 
-  /**
-   * handles form submit with name, categorys, description values
-   * 
-   * @param {Event} event : form submit event
-   */
-  const handleSubmit = (event) => {
-    setCategory("Gemüse");
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      Name: data.get("name"),
-      Categorys: data.get("categorys"),
-      Description: data.get("description"),
-    });
+  const handleSubmit = async e => {
+    setIsSuccess(false);
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
 
-    setCategory([]);
-    event.currentTarget.reset();
-  };
+    var nachricht = {}
+    nachricht.itemName= articleName;
+    nachricht.itemDescription=description;
+    nachricht.categoryList=getCategories(userStore.token);
+    body: JSON.stringify(nachricht);
+
+    const genericErrorMessage = "Etwas ist schief gelaufen, versuchen Sie es erneut."
+
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/newitem", {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-Type": "application/json",
+      Authorization: `Bearer ${userStore.token}`},
+      body: JSON.stringify(nachricht)
+    })
+
+    .then(async response => {
+      setIsSubmitting(false);
+      if (!response.ok) {
+        if (response.status === 400) {
+          setError("Artikelname fehlt");
+        } else if (response.status === 404) {
+          setError("Kategorie nicht gefunden");
+        } else if (response.status === 500) {
+          setError(genericErrorMessage);
+          const data = await response.json();
+          if (data.message) setError(data.nessafe || genericErrorMessage);
+        } else {
+          setError(genericErrorMessage);
+        }
+      } else {
+        const data = await response.json();
+        setIsSuccess(true);
+      }
+    })
+    .catch(error => {
+      setIsSubmitting(false);
+      setError(genericErrorMessage);
+    })
+  }
 
   return (
     <Container component="main" maxWidth="md">

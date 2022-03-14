@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export async function getCategories(token) {
+export default async function getCategories(token) {
     return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/categories", {
         method: "GET",
         headers: {
