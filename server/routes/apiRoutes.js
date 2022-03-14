@@ -67,8 +67,30 @@ router.get("/categories", verifyUser, async (req, res, next) => {
 /**
  * Route to get all items from the database.
  */
-router.get("items", verifyUser, async (req, res, next) => {
-
+router.get("/items", verifyUser, async (req, res, next) => {
+    var items = {};
+    try {
+        items = await Item.findAll({
+            attributes: [
+                'name',
+                'description'
+            ],
+            include: {
+                model: Category,
+                attributes: [
+                    'id'
+                ],
+                through: {
+                    attributes: []
+                }
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        return res.send("Internaml Server Error");
+    }
+    res.send(JSON.stringify(items));
 });
 
 module.exports = router;
