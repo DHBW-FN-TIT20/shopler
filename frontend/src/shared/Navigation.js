@@ -24,7 +24,6 @@ import {
   ShoppingBag,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
-import { Box } from "@mui/system";
 import { useUserStore } from "../stores/UserStore";
 const drawerWidth = 240;
 
@@ -80,6 +79,7 @@ const Drawer = styled(MuiDrawer, {
 export default function Navigation({ smallscreen }) {
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
+  const [userStore, userAction] = useUserStore();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -88,12 +88,6 @@ export default function Navigation({ smallscreen }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const state = {
-    isActive: false,
-  };
-
-  const [userStore, userAction] = useUserStore();
 
   const logoutHandler = () => {
     const refreshToken = localStorage.getItem("refreshToken");
@@ -112,7 +106,7 @@ export default function Navigation({ smallscreen }) {
   }
 
   return (
-    <Box>
+    <React.Fragment>
       {!smallscreen ? (
         <AppBar position="fixed">
           <Toolbar>
@@ -212,6 +206,6 @@ export default function Navigation({ smallscreen }) {
           )}
         </List>
       </Drawer>
-    </Box>
+    </React.Fragment>
   );
 }
