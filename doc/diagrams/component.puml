@@ -1,0 +1,17 @@
+@startuml component
+() HTTP as htf
+
+package "Frontend" {
+    [React] - htf
+}
+
+package "Backend" {
+    () HTTP as htb
+    database "MariaDB"
+    htf - [Express.js]
+    [Express.js] - htb
+    htb - MariaDB
+}
+
+
+@enduml
