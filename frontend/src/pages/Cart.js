@@ -6,82 +6,108 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import React from "react";
-
-const cards = [
-  {
-    id: 2,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 4,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  }
-];
+import React, { useEffect, useState } from "react";
+import { useUserStore } from "../stores/UserStore";
 
 const MaxDescriptionLength = 50;
 let CheckedItems = [];
 
 export default function Cart() {
-  const handleCheckboxChange = (event) =>
-    event.target.checked
-      ? CheckedItems.push(cards.find((item) => item.id === event.target.id))
-      : CheckedItems.splice(
-          CheckedItems.find((item) => item.id === event.target.id),
-          1
-        );
-    
-  
+  const [didMount, setDidMount] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+  const [userStore, setUserStore] = useUserStore();
+
+  const removeItemFromCart = (id) => {
+    const item = cartItems.find((cart) => cart.id === id);
+    console.log(id);
+    console.log(item);
+
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/removecartitem", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userStore.token}`,
+      },
+      body: JSON.stringify({ cartItemId: id }),
+    }).then(async (response) => {
+      if (!response.ok) {
+        console.log(response);
+      } else {
+        const newCarts = cartItems.filter(cart => cart !== item);
+        console.log(newCarts);
+        setCartItems(newCarts);
+      }
+    });
+  };
+
+  const handleCheckboxChange = (event) => {
+    if (event.target.checked) {
+      removeItemFromCart(parseInt(event.target.id));
+    }
+  };
+
+  async function loadCartFromDB(token) {
+    return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/cartitems", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          console.log(response);
+          return null;
+        }
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
+  }
+
+  useEffect(() => {
+    getCartItems();
+    async function getCartItems() {
+      if (didMount) {
+        setDidMount(false);
+        setCartItems(await loadCartFromDB(userStore.token));
+      }
+    }
+  });
+
   return (
     <Container maxWidth="md">
       <Typography component="h1" variant="h2">
         Liste
       </Typography>
       <List>
-        {cards.map((cards) => {
-          const { id, name, description } = cards;
-          return (
-            <ListItem
-              button
-              divider
-              secondaryAction={
-                <Checkbox
-                  id={id}
-                  edge="end"
-                  onChange={handleCheckboxChange}
-                  //   checked={checked.indexOf(value) !== -1}
-                  //   inputProps={{ 'aria-labelledby': labelId }}
-                />
-              }
-            >
-              <ListItemText
-                primary={name}
-                secondary={
-                  description.length < MaxDescriptionLength
-                    ? description
-                    : description.substring(0, MaxDescriptionLength) + " ..."
+        {cartItems &&
+          cartItems.map((card) => {
+            const { id, count, item } = card;
+            return (
+              <ListItem
+                button
+                divider
+                secondaryAction={
+                  <Checkbox
+                    id={id}
+                    edge="end"
+                    onChange={handleCheckboxChange}
+                    checked={false}
+                  />
                 }
-              />
-            </ListItem>
-          );
-        })}
+              >
+                <ListItemText>{item.name}</ListItemText>
+                <ListItemText>{count}</ListItemText>
+              </ListItem>
+            );
+          })}
       </List>
     </Container>
   );
