@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const { verifyUser } = require('./../bin/auth/authenticate');
-const { User } = require("./../models/users");
 const { Category } = require("./../models/categories");
 const { Item } = require("./../models/items");
 const { CartItem } = require("./../models/cartItems");
