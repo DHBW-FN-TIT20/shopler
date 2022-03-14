@@ -190,10 +190,10 @@ router.post("/removecartitem", verifyUser, async (req, res, next) => {
         // delete cart item
         const count = await CartItem.destroy({where: {id: cartItemId, userId: user.id}});
         if (count === 0) {
-            req.statusCode = 404;
-            return req.send("Cart Item not found");
+            res.statusCode = 404;
+            return res.send("Cart Item not found");
         }
-        req.send({sucess: true});
+        res.send({success: true});
     } catch (err) {
         console.log(err);
         res.statusCode = 500;
