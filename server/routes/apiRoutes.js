@@ -68,6 +68,7 @@ router.get("/categories", verifyUser, async (req, res, next) => {
  * Route to get all items from the database.
  */
 router.get("/items", verifyUser, async (req, res, next) => {
+    const user = await req.user;
     var items = {};
     try {
         items = await Item.findAll({
@@ -84,6 +85,9 @@ router.get("/items", verifyUser, async (req, res, next) => {
                 through: {
                     attributes: []
                 }
+            },
+            where: {
+                userId: user.id
             }
         });
     } catch (err) {
@@ -93,5 +97,7 @@ router.get("/items", verifyUser, async (req, res, next) => {
     }
     res.send(JSON.stringify(items));
 });
+
+
 
 module.exports = router;
