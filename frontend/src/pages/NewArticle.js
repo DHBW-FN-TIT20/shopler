@@ -13,14 +13,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUserStore } from "../stores/UserStore";
 import getCategories from "../api/Categories";
 
 
-// dummyvalues
-const categorys = ["Gemüse", "Obst", "Lebensmittel", "Getränke"];
+//var categories = [];
 export default function NewArticle() {
+  const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -29,6 +29,25 @@ export default function NewArticle() {
   const [articleName, setArticleName] = useState("");
   const [description, setDescription] = useState("");
   const [categoryName, setCategory] = useState([]);
+  const [didMount, setDidMount] = useState(true);
+
+  async function loadCategoriesFromDB() {
+    var catArray = await getCategories(userStore.token);
+    const categories = [];
+    catArray.forEach(cat => {
+      categories.push(cat.name);
+    })
+    return categories;
+  }
+
+  useEffect(async() => {
+      if(didMount){
+        setCategories(await loadCategoriesFromDB());
+        setDidMount(false);
+      } else {
+        return;
+      }
+  }, [categories])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -133,7 +152,7 @@ export default function NewArticle() {
               </Box>
             )}
           >
-            {categorys.map((name) => (
+            {categories.map((name) => (
               <MenuItem key={name} value={name}>
                 {name}
               </MenuItem>
@@ -155,6 +174,7 @@ export default function NewArticle() {
           type="submit"
           startIcon={<Add />}
           sx={{ float: "right", mt: 3}}
+          onClick={loadCategoriesFromDB}
         >
           Hinzufügen
         </Button>
