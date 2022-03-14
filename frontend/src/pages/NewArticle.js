@@ -31,6 +31,7 @@ export default function NewArticle() {
   const [categoryName, setCategory] = useState([]);
   const [didMount, setDidMount] = useState(true);
 
+  //Load categories from DB
   async function loadCategoriesFromDB() {
     var catArray = await getCategories(userStore.token);
     const categories = [];
@@ -40,6 +41,7 @@ export default function NewArticle() {
     return categories;
   }
 
+  //call function when page is loaded
   useEffect(async() => {
       if(didMount){
         setCategories(await loadCategoriesFromDB());
@@ -78,11 +80,14 @@ export default function NewArticle() {
     setIsSubmitting(true);
     setError("");
 
-    var nachricht = {}
-    nachricht.itemName= articleName;
-    nachricht.itemDescription=description;
-    nachricht.categoryList=getCategories(userStore.token);
-    body: JSON.stringify(nachricht);
+    var message = {}
+
+    const data = new FormData(e.currentTarget);
+    message.itemName = data.get("name");
+    message.itemDescription=data.get("description");
+    message.categoryList=data.get("");
+    setCategory([]);
+    e.currenttarget.reset();
 
     const genericErrorMessage = "Etwas ist schief gelaufen, versuchen Sie es erneut."
 
@@ -91,7 +96,7 @@ export default function NewArticle() {
       credentials: "include",
       headers: {"Content-Type": "application/json",
       Authorization: `Bearer ${userStore.token}`},
-      body: JSON.stringify(nachricht)
+      body: JSON.stringify(message)
     })
 
     .then(async response => {
@@ -109,7 +114,6 @@ export default function NewArticle() {
           setError(genericErrorMessage);
         }
       } else {
-        const data = await response.json();
         setIsSuccess(true);
       }
     })
