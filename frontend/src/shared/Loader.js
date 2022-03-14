@@ -16,7 +16,7 @@ const Loader = () => {
   return (
     <Box style={style.Spinner}>
       <CircularProgress
-      color="secondary"
+      color="primary"
       size={60}
       />
     </Box>

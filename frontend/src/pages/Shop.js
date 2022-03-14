@@ -1,3 +1,4 @@
+import { Check } from "@mui/icons-material";
 import { Add } from "@mui/icons-material";
 import {
   Autocomplete,
@@ -12,47 +13,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getCategories from "../api/Categories";
+import { useUserStore } from "../stores/UserStore";
 
-const cards = [
-  {
-    id: 3,
-    name: "Apple 3",
-    categories: ["Obst"],
-    description:
-      "This is healthy. C it's Gemuse.C it's Gemuse.C it's Gemuse.C it's Gemuse.C it's Gemuse.C it's Gemuse.",
-  },
-  {
-    id: 4,
-    name: "Apple 4",
-    categories: ["Grün"],
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple 5",
-    categories: ["Gemüse"],
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 6,
-    name: "Apple 6",
-    categories: ["Lebensmittel", "Obst"],
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 7,
-    name: "Apple 7",
-    categories: ["Obst", "Lebensmittel"],
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 8,
-    name: "Apple 8",
-    categories: ["Gemüse", "Obst", "Getränk"],
-    description: "This is healthy. C it's Gemuse.",
-  },
-];
+const cards = [];
 
 const categoryNames = [
   "Gemüse",
@@ -63,15 +28,37 @@ const categoryNames = [
   "Test",
 ];
 export default function Shop() {
+  const [didMountCategories, setDidMountCategories] = useState(true);
+  const [didMountItems, setDidMountItems] = useState(true);
+  const [items, setItems] = useState([]);
+  const [categoriesList, setCategories] = useState([]);
   const [categoryFilterList, setFilter] = useState([]);
+  const [userStore, userAction] = useUserStore();
 
-  const addItemToListWithId = (id) => {
-    console.log(id);
+  const addItemToListWithId = (e, id) => {
+    const button = e.currentTarget;
+    const message = {
+      itemId: id,
+    };
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/addcartitem", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userStore.token}`,
+      },
+      body: JSON.stringify(message),
+    }).then(async (response) => {
+      if (!response.ok) {
+        console.log(response.status);
+      } else {
+      }
+    });
   };
 
   /**
    * handles and adds filter to global filter list on select change event
-   * 
+   *
    * @param {change event} event : html select obj on change event
    * @param {array/string} value : array or string with all values of the select
    */
@@ -81,17 +68,74 @@ export default function Shop() {
 
   /**
    * checks if item fits with react object declared filter status array
-   * 
+   *
    * @param {articleObj} item : (Article) Obj. with type array
    * @returns all filters fits - true, otherwise false
    */
   const checkIfInFilter = (item) => {
-    if (categoryFilterList.length <= 0) return true;
+    if (!categoryFilterList) return true;
     for (let catIndex = 0; catIndex < categoryFilterList.length; catIndex++) {
-      if (!item.categories.includes(categoryFilterList[catIndex])) return false;
+      if (
+        !item.categories.find(
+          (category) => category.id === categoryFilterList[catIndex].id
+        )
+      )
+        return false;
     }
     return true;
   };
+
+  async function loadListFromDatabase(token) {
+    return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/items", {
+      method: "GET",
+      headers: {
+        Contenttype: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          console.log(response);
+          return null;
+        }
+        const data = await response.json();
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
+  }
+
+  // run after render
+  useEffect(() => {
+    getsCategories();
+    getItems();
+
+    async function loadCategoriesFromDB() {
+      return await getCategories(userStore.token);
+    }
+    async function loadIt() {
+      return await loadListFromDatabase(userStore.token);
+    }
+
+    async function getItems() {
+      if (didMountItems) {
+        setDidMountItems(false);
+        setItems(await loadIt());
+      } else {
+        return;
+      }
+    }
+    async function getsCategories() {
+      if (didMountCategories) {
+        setDidMountCategories(false);
+        setCategories(await loadCategoriesFromDB());
+      } else {
+        return;
+      }
+    }
+  });
 
   return (
     <Container component="main" maxWidth="lg">
@@ -100,8 +144,8 @@ export default function Shop() {
       <Autocomplete
         multiple
         id="filters"
-        options={categoryNames}
-        getOptionLabel={(category) => category}
+        options={categoriesList}
+        getOptionLabel={(category) => category.name}
         onChange={handleFilterChange}
         sx={{ marginTop: 2 }}
         filterSelectedOptions
@@ -114,52 +158,58 @@ export default function Shop() {
         )}
       />
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: "5px" }}>
-        {cards
-          .filter((card) => checkIfInFilter(card))
-          .map((card, index) => {
-            const { id, name, categories, description } = card;
-            return (
-              <Grid item xs={6} sm={4} md={3}>
-                <Card
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      {name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {description}
-                    </Typography>
-                    <Box>
-                      {categories.map((category) => {
-                        return (
-                          <Chip
-                            sx={{ marginRight: "2px", marginTop: 1 }}
-                            label={category}
-                          />
-                        );
-                      })}
-                    </Box>
-                  </CardContent>
-                  <CardActions
-                    sx={{ marginTop: "auto", flexDirection: "row-reverse" }}
+        {items &&
+          items
+            .filter((item) => checkIfInFilter(item))
+            .map((card, index) => {
+              const { id, name, description, categories } = card;
+              return (
+                <Grid key={index} item xs={6} sm={4} md={3}>
+                  <Card
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                    }}
                   >
-                    <Button
-                      variant="contained"
-                      onClick={() => addItemToListWithId(id)}
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {description}
+                      </Typography>
+                      <Box>
+                        {categoriesList
+                          .filter((category) =>
+                            categories.find((cat) => cat.id === category.id)
+                          )
+                          .map((category) => {
+                            return (
+                              <Chip
+                                key={id + category.id}
+                                sx={{ marginRight: "2px", marginTop: 1 }}
+                                label={category.name}
+                              />
+                            );
+                          })}
+                      </Box>
+                    </CardContent>
+                    <CardActions
+                      sx={{ marginTop: "auto", flexDirection: "row-reverse" }}
                     >
-                      <Add />
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
+                      <Button
+                        id={"button" + id}
+                        variant="contained"
+                        onClick={(e) => addItemToListWithId(e, id)}
+                      >
+                        <Add />
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
       </Grid>
     </Container>
   );

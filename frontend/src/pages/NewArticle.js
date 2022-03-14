@@ -26,25 +26,27 @@ export default function NewArticle() {
   const [error, setError] = useState("");
   const [userStore, userAction] = useUserStore();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [categoryName, setCategory] = useState([]);
-
-  //Load categories from DB
-  async function loadCategoriesFromDB() {
-    return await getCategories(userStore.token);
-  }
+  const [categoryName, setCategory] = useState(["Sonstiges"]);
 
   //call function when page is loaded
   useEffect(() => {
-    getCategories();
-    async function getCategories() {
+    getsCategories();
+
+    //Load categories from DB
+    async function loadCategoriesFromDB() {
+      return await getCategories(userStore.token);
+    }
+    // define async func in func to prevent race conditions
+    async function getsCategories() {
       if (didMount) {
         setCategories(await loadCategoriesFromDB());
+        console.log(categories);
         setDidMount(false);
       } else {
         return;
       }
     }
-  }, [categories]);
+  });
 
   /**
    * handles multiple value select add/remove value to React Component State
@@ -121,7 +123,7 @@ export default function NewArticle() {
 
   return (
     <Container component="main" maxWidth="md">
-      {error&&<Alert severity="error">{error}</Alert>}
+      {error && <Alert severity="error">{error}</Alert>}
       <CssBaseline />
       <Typography variant="h2" component="h1">
         Artikel hinzufügen
