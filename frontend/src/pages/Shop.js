@@ -59,7 +59,7 @@ export default function Shop() {
   /**
    * handles and adds filter to global filter list on select change event
    *
-   * @param {change event} event : html select obj on change event
+   * @param {changeevent} event : html select obj on change event
    * @param {array/string} value : array or string with all values of the select
    */
   const handleFilterChange = (event, value) => {
