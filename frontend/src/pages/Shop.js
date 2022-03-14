@@ -20,6 +20,7 @@ export default function Shop() {
   // didMount State to allow only one database request
   const [didMountCategories, setDidMountCategories] = useState(true);
   const [didMountItems, setDidMountItems] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [items, setItems] = useState([]);
   const [categoriesList, setCategories] = useState([]);
   const [categoryFilterList, setFilter] = useState([]);
@@ -27,14 +28,12 @@ export default function Shop() {
 
   /**
    * adds item to user cart
-   * 
+   *
    * @param {event} event : click event
    * @param {number} id : item id
    */
   const addItemToListWithId = (event, id) => {
-    const message = {
-      itemId: id,
-    };
+    setIsSubmitting(true);
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/addcartitem", {
       method: "POST",
       credentials: "include",
@@ -42,11 +41,13 @@ export default function Shop() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userStore.token}`,
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ itemId: id }),
     }).then(async (response) => {
-      if (!response.ok) {
-      } else {
-      }
+      setIsSubmitting(false);
+      return null;
+    }).catch(() => {
+      setIsSubmitting(false);
+      return null;
     });
   };
 
@@ -81,7 +82,7 @@ export default function Shop() {
 
   /**
    * gets all items from user from database as list
-   * 
+   *
    * @param {string} token : user token for authentication
    * @returns : item list
    */
@@ -199,7 +200,8 @@ export default function Shop() {
                       <Button
                         id={"button" + id}
                         variant="contained"
-                        onClick={(e) => addItemToListWithId(e, id)}
+                        onClick={(event) => addItemToListWithId(event, id)}
+                        disabled={isSubmitting}
                       >
                         <Add />
                       </Button>

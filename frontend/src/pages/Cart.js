@@ -109,6 +109,9 @@ export default function Cart() {
             return (
               <ListItem
                 key={item.name}
+                sx={{
+                  height: 70
+                }}
                 button
                 divider
                 secondaryAction={
