@@ -72,6 +72,7 @@ router.get("/items", verifyUser, async (req, res, next) => {
     try {
         items = await Item.findAll({
             attributes: [
+                'id',
                 'name',
                 'description'
             ],
