@@ -1,0 +1,26 @@
+@startuml navigation
+
+start
+
+split
+    :Benutzer klickt auf Impressum;
+    :Benutzer wird zum Impressum weitergeleitet;
+    detach
+split again
+    :Benutzer klickt auf Privacy;
+    :Benutzer wird zur Datenschutzerklärung weitergeleitet;
+    detach
+split again
+    :Benutzer klickt auf Artikel hinzufügen;
+split again
+    :Benutzer klickt auf Einkaufsliste;
+end split
+if(Benutzer eingeloggt?)
+    -> ja;
+    :Benutzer wird Seite angezeigt;
+    stop
+else
+    -> nein;
+    :Benutzer wird zum Login weitergeleitet;
+    stop
+@enduml

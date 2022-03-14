@@ -1,0 +1,16 @@
+@startuml login
+
+start
+
+:Nutzer gibt Login Daten ein;
+:Daten werden geprüft;
+while (Daten Korrekt?) is (nein))
+    :Nutzer bekommt Fehlermeldung;
+    :Nutzer gibt Daten erneut ein;
+endwhile
+:Benutzer wird eingeloggt;
+:Token wird gesetzt;
+
+stop
+
+@enduml
