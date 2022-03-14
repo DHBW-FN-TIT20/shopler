@@ -2,14 +2,15 @@
 
 start
 
-:Nutzer gibt Login Daten ein;
+:Benutzer gibt Login Daten ein;
 :Daten werden geprüft;
-while (Daten Korrekt?) is (nein))
-    :Nutzer bekommt Fehlermeldung;
-    :Nutzer gibt Daten erneut ein;
+while (Daten okay?) is (nein))
+    :Benutzer bekommt Fehlermeldung;
+    :Benutzer gibt Daten erneut ein;
 endwhile
 :Benutzer wird eingeloggt;
 :Token wird gesetzt;
+:Benutzer wird zu Home weitergeleitet;
 
 stop
 
