@@ -26,7 +26,7 @@ export default function NewArticle() {
   const [error, setError] = useState("");
   const [userStore, userAction] = useUserStore();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [categoryName, setCategory] = useState([]);
+  const [categoryName, setCategory] = useState(["Sonstiges"]);
 
   //call function when page is loaded
   useEffect(() => {
