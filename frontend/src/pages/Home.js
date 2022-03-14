@@ -82,7 +82,7 @@ export default function Home() {
               Stift und Block ist Vergangenheit. Keiner hat immer und überall
               seinen Block dabei, spätestens nach einem Tag bleibt dieser
               irgendwo liegen. So nicht Shopler. Die Online Einkaufsliste bleibt
-              und kann nich vergessen oder liegen gelassen werden.
+              und kann nicht vergessen oder liegen gelassen werden.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={5} sx={styles.CenterImage}>

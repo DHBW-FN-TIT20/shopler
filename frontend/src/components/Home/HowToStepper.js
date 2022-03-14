@@ -67,15 +67,15 @@ export default function HowToStepper() {
               <Card>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    {"name"}
+                    Apfel
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {"description"}
+                    Gesund und wichtig für einen Reisauflauf.
                   </Typography>
                   <Box>
                     <Chip
                       sx={{ marginRight: "2px", marginTop: 1 }}
-                      label={"Gemüse"}
+                      label={"Obst"}
                     />
                   </Box>
                 </CardContent>
@@ -105,30 +105,21 @@ export default function HowToStepper() {
                   divider
                   secondaryAction={<Checkbox edge="end" />}
                 >
-                  <ListItemText
-                    primary={"name"}
-                    secondary={"This is description"}
-                  />
+                  <ListItemText>Apfel</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   divider
                   secondaryAction={<Checkbox edge="end" />}
                 >
-                  <ListItemText
-                    primary={"name"}
-                    secondary={"This is description"}
-                  />
+                  <ListItemText>Fahrradschlauch</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   divider
                   secondaryAction={<Checkbox edge="end" />}
                 >
-                  <ListItemText
-                    primary={"name"}
-                    secondary={"This is description"}
-                  />
+                  <ListItemText>Erdbeeren</ListItemText>
                 </ListItem>
               </List>
             </Grid>
@@ -164,7 +155,6 @@ export default function HowToStepper() {
                 fullWidth
                 label="Beschreibung"
                 name="description"
-                autoFocus
                 multiline
                 minRows={5}
               />
