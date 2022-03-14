@@ -1,4 +1,3 @@
-import { Check } from "@mui/icons-material";
 import { Add } from "@mui/icons-material";
 import {
   Autocomplete,
@@ -17,29 +16,24 @@ import { useEffect, useState } from "react";
 import getCategories from "../api/Categories";
 import { useUserStore } from "../stores/UserStore";
 
-const cards = [];
-
-const categoryNames = [
-  "Gemüse",
-  "Obst",
-  "Lebensmittel",
-  "Getränke",
-  "Marmelade",
-  "Test",
-];
 export default function Shop() {
+  // didMount State to allow only one database request
   const [didMountCategories, setDidMountCategories] = useState(true);
   const [didMountItems, setDidMountItems] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [items, setItems] = useState([]);
   const [categoriesList, setCategories] = useState([]);
   const [categoryFilterList, setFilter] = useState([]);
   const [userStore, userAction] = useUserStore();
 
-  const addItemToListWithId = (e, id) => {
-    const button = e.currentTarget;
-    const message = {
-      itemId: id,
-    };
+  /**
+   * adds item to user cart
+   *
+   * @param {event} event : click event
+   * @param {number} id : item id
+   */
+  const addItemToListWithId = (event, id) => {
+    setIsSubmitting(true);
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/addcartitem", {
       method: "POST",
       credentials: "include",
@@ -47,12 +41,13 @@ export default function Shop() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userStore.token}`,
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ itemId: id }),
     }).then(async (response) => {
-      if (!response.ok) {
-        console.log(response.status);
-      } else {
-      }
+      setIsSubmitting(false);
+      return null;
+    }).catch(() => {
+      setIsSubmitting(false);
+      return null;
     });
   };
 
@@ -85,29 +80,33 @@ export default function Shop() {
     return true;
   };
 
-  async function loadListFromDatabase(token) {
+  /**
+   * gets all items from user from database as list
+   *
+   * @param {string} token : user token for authentication
+   * @returns : item list
+   */
+  async function loadItemsFromDB(token) {
     return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/items", {
       method: "GET",
       headers: {
-        Contenttype: "application/json",
+        ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (response) => {
         if (!response.ok) {
-          console.log(response);
           return null;
         }
         const data = await response.json();
         return data;
       })
       .catch((error) => {
-        console.log(error);
         return null;
       });
   }
 
-  // run after render
+  // run after render loads data from database
   useEffect(() => {
     getsCategories();
     getItems();
@@ -115,14 +114,14 @@ export default function Shop() {
     async function loadCategoriesFromDB() {
       return await getCategories(userStore.token);
     }
-    async function loadIt() {
-      return await loadListFromDatabase(userStore.token);
+    async function loadItems() {
+      return await loadItemsFromDB(userStore.token);
     }
 
     async function getItems() {
       if (didMountItems) {
         setDidMountItems(false);
-        setItems(await loadIt());
+        setItems(await loadItems());
       } else {
         return;
       }
@@ -201,7 +200,8 @@ export default function Shop() {
                       <Button
                         id={"button" + id}
                         variant="contained"
-                        onClick={(e) => addItemToListWithId(e, id)}
+                        onClick={(event) => addItemToListWithId(event, id)}
+                        disabled={isSubmitting}
                       >
                         <Add />
                       </Button>

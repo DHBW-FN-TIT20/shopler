@@ -27,6 +27,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useUserStore } from "../stores/UserStore";
 const drawerWidth = 240;
 
+/**
+ * animation for open Drawer to wider view
+ * 
+ * @param {theme} theme : react theme
+ * @returns 
+ */
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -36,6 +42,13 @@ const openedMixin = (theme) => ({
   overflowX: "hidden",
 });
 
+/**
+ * close animation for Drawer. closes Drawer completely on small layout
+ * 
+ * @param {theme} theme : react theme
+ * @param {boolean} smallscreen : is small layout
+ * @returns 
+ */
 const closedMixin = (theme, smallscreen) => ({
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -48,6 +61,9 @@ const closedMixin = (theme, smallscreen) => ({
   },
 });
 
+/**
+ * custom Drawer Header for small layout
+ */
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -59,6 +75,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+
+/**
+ * custom Drawer with small and big view. hides completely on small layout.
+ */
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open, smallscreen }) => ({
@@ -81,14 +101,19 @@ export default function Navigation({ smallscreen }) {
   const [open, setOpen] = React.useState(false);
   const [userStore, userAction] = useUserStore();
 
+  // open Drawer to wider view
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  // close Drawer for small view
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  /**
+   * logs user out, removes token from local storage and database
+   */
   const logoutHandler = () => {
     const refreshToken = localStorage.getItem("refreshToken");
     fetch(process.env.REACT_APP_API_ENDPOINT + "users/logout", {

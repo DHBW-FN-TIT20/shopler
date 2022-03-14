@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 
 const styles = {
   Base: {
-    backgroundColor: "rgb(90, 90, 90)",
-    mt: 2,
+    backgroundColor: "rgb(140, 140, 140)",
+    mt: 20,
   },
   Content: {
     pt: 2,
     pb: 2,
+    color: "white"
   },
   Links: {
     justifyContent: "center",

@@ -30,8 +30,8 @@ const styles = {
   CenterImage: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 };
 
 export default function Home() {
@@ -52,12 +52,7 @@ export default function Home() {
             Los gehts
           </Button>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={5}
-          sx={styles.CenterImage}
-        >
+        <Grid item xs={12} sm={5} sx={styles.CenterImage}>
           <img style={{ width: "80%" }} src={CheckBoxes} alt="" />
         </Grid>
       </Grid>
@@ -66,12 +61,7 @@ export default function Home() {
       </Container>
       <Container>
         <Grid component={Container} container>
-          <Grid
-            item
-            xs={12}
-            sm={5}
-            sx={styles.CenterImage}
-          >
+          <Grid item xs={12} sm={5} sx={styles.CenterImage}>
             <img style={{ width: "80%" }} src={AboutUs} alt="" />
           </Grid>
           <Grid item xs={12} sm={7} sx={styles.CenterText}>
@@ -81,7 +71,7 @@ export default function Home() {
               alle haben das gleiche Alltagsproblem: Wir müssen Einkaufen gehen.
               Unvorbereitet gibt es hierbei leider so gut wie immer Sachen die
               wir dabei vergessen, obwohl sich manches noch extra vorgenommen
-              wurde. Doch ein Schritt durch die Tür und <strong>Zack</strong>{" "}
+              wurde. Doch ein Schritt durch die Tür und <strong>Zack</strong>
               Blackout. So ineffizient wie bisher konnte es also nicht weiter
               gehen. So die Idee der digitalen Einkaufsliste, kurz: Shopler.
             </Typography>
@@ -92,15 +82,10 @@ export default function Home() {
               Stift und Block ist Vergangenheit. Keiner hat immer und überall
               seinen Block dabei, spätestens nach einem Tag bleibt dieser
               irgendwo liegen. So nicht Shopler. Die Online Einkaufsliste bleibt
-              und kann nich vergessen oder liegen gelassen werden.
+              und kann nicht vergessen oder liegen gelassen werden.
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={5}
-            sx={styles.CenterImage}
-          >
+          <Grid item xs={12} sm={5} sx={styles.CenterImage}>
             <img style={{ width: "80%" }} src={Tasks} alt="" />
           </Grid>
         </Grid>

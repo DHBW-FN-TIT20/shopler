@@ -9,18 +9,20 @@ import {
 import React, { useEffect, useState } from "react";
 import { useUserStore } from "../stores/UserStore";
 
-const MaxDescriptionLength = 50;
-let CheckedItems = [];
-
 export default function Cart() {
   const [didMount, setDidMount] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [userStore, setUserStore] = useUserStore();
 
+  /**
+   * removes id with post request from database
+   * 
+   * @param {number} id : item id
+   */
   const removeItemFromCart = (id) => {
     const item = cartItems.find((cart) => cart.id === id);
-    console.log(id);
-    console.log(item);
+    setIsSubmitting(true);
 
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/removecartitem", {
       method: "POST",
@@ -30,24 +32,40 @@ export default function Cart() {
         Authorization: `Bearer ${userStore.token}`,
       },
       body: JSON.stringify({ cartItemId: id }),
-    }).then(async (response) => {
-      if (!response.ok) {
-        console.log(response);
-      } else {
-        const newCarts = cartItems.filter(cart => cart !== item);
-        console.log(newCarts);
+    })
+      .then(async (response) => {
+        setIsSubmitting(false);
+        if (!response.ok) {
+          return;
+        }
+        const newCarts = cartItems.filter((cart) => cart !== item);
         setCartItems(newCarts);
-      }
-    });
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+        return null;
+      });
   };
 
+  /**
+   * removes Item if checkbox is checked
+   * 
+   * @param {event} event : checkbox event
+   */
   const handleCheckboxChange = (event) => {
+    // only if checkbox is checked
     if (event.target.checked) {
       removeItemFromCart(parseInt(event.target.id));
     }
   };
 
-  async function loadCartFromDB(token) {
+  /**
+   * gets CartItems from database
+   * 
+   * @param {string} token : user token for authentication
+   * @returns : array of item objects
+   */
+  async function loadCartItemsFromDB(token) {
     return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/cartitems", {
       method: "GET",
       headers: {
@@ -57,26 +75,24 @@ export default function Cart() {
     })
       .then(async (response) => {
         if (!response.ok) {
-          console.log(response);
           return null;
         }
-        console.log(response);
         const data = await response.json();
-        console.log(data);
         return data;
       })
       .catch((error) => {
-        console.log(error);
         return null;
       });
   }
 
+  // calls after render
   useEffect(() => {
-    getCartItems();
-    async function getCartItems() {
+    loadCartItems();
+    // async func call inside for preventing race conditions
+    async function loadCartItems() {
       if (didMount) {
         setDidMount(false);
-        setCartItems(await loadCartFromDB(userStore.token));
+        setCartItems(await loadCartItemsFromDB(userStore.token));
       }
     }
   });
@@ -92,14 +108,19 @@ export default function Cart() {
             const { id, count, item } = card;
             return (
               <ListItem
+                key={item.name}
+                sx={{
+                  height: 70
+                }}
                 button
                 divider
                 secondaryAction={
                   <Checkbox
-                    id={id}
+                    id={id.toString()}
                     edge="end"
                     onChange={handleCheckboxChange}
                     checked={false}
+                    disabled={isSubmitting}
                   />
                 }
               >
