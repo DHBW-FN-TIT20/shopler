@@ -18,7 +18,6 @@ const { database } = require("./bin/db/connect");
 const { User } = require('./models/users');
 const { Item } = require('./models/items');
 const { Category } = require('./models/categories')
-const { List } = require('./models/lists');
 const { CartItem } = require('./models/cartItems');
 
 // import routers
@@ -80,8 +79,7 @@ try {
   Category.belongsToMany(Item, {through: 'item_cat'});
   Item.hasMany(CartItem);
   Item.belongsTo(User);
-  List.hasMany(CartItem);
-  User.hasOne(List);
+  User.hasMany(CartItem);
   database.sync();
 } catch (err) {
   console.error(err);
