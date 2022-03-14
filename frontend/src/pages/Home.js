@@ -18,21 +18,26 @@ const styles = {
     padding: 15,
     textAlign: "center",
   },
-  CenteredContent: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
   Stepper: {
     paddingTop: "10vh",
     paddingBottom: "10vh",
   },
+  CenterText: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  CenterImage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 };
 
 export default function Home() {
   return (
     <Container>
-      <Grid container sx={{ mt: "20vh", mb: "10vh" }} className="FirstView">
+      <Grid container sx={{ mt: "20vh", mb: "10vh" }}>
         <Grid item style={styles.TextField} xs={12} sm={7}>
           <img style={{ width: "70%" }} src={Logo} alt="Shopler" />
           <Typography textAlign={"center"} paragraph>
@@ -51,11 +56,7 @@ export default function Home() {
           item
           xs={12}
           sm={5}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          sx={styles.CenterImage}
         >
           <img style={{ width: "80%" }} src={CheckBoxes} alt="" />
         </Grid>
@@ -64,20 +65,16 @@ export default function Home() {
         <HowToStepper />
       </Container>
       <Container>
-        <Grid container>
+        <Grid component={Container} container>
           <Grid
             item
             xs={12}
             sm={5}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            sx={styles.CenterImage}
           >
             <img style={{ width: "80%" }} src={AboutUs} alt="" />
           </Grid>
-          <Grid item xs={12} sm={7} sx={styles.CenteredContent}>
+          <Grid item xs={12} sm={7} sx={styles.CenterText}>
             <Typography variant="h4">Wer wir sind</Typography>
             <Typography paragraph>
               Wir sind 3 Studenten der DHBW und sind begeisterte Entwickler. Und
@@ -89,7 +86,7 @@ export default function Home() {
               gehen. So die Idee der digitalen Einkaufsliste, kurz: Shopler.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={7} sx={styles.CenteredContent}>
+          <Grid item xs={12} sm={7} sx={styles.CenterText}>
             <Typography variant="h4">Die Idee</Typography>
             <Typography paragraph>
               Stift und Block ist Vergangenheit. Keiner hat immer und überall
@@ -102,11 +99,7 @@ export default function Home() {
             item
             xs={12}
             sm={5}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            sx={styles.CenterImage}
           >
             <img style={{ width: "80%" }} src={Tasks} alt="" />
           </Grid>
