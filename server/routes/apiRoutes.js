@@ -5,6 +5,7 @@ const { verifyUser } = require('./../bin/auth/authenticate');
 const { User } = require("./../models/users");
 const { Category } = require("./../models/categories");
 const { Item } = require("./../models/items");
+const { CartItem } = require("./../models/cartItems");
 const { database } = require('../bin/db/connect');
 
 /**
@@ -71,6 +72,10 @@ router.get("/items", verifyUser, async (req, res, next) => {
     const user = await req.user;
     var items = {};
     try {
+        /**
+         * Find all items and select id, name, description from item
+         * and id from category from the requesting user.
+         */
         items = await Item.findAll({
             attributes: [
                 'id',
@@ -97,6 +102,55 @@ router.get("/items", verifyUser, async (req, res, next) => {
     }
     res.send(JSON.stringify(items));
 });
+
+/**
+ * Add a new item to the shopping list.
+ */
+router.post("/addcartitem", verifyUser, async (req, res, next) => {
+    const user = await req.user;
+    const itemId = await req.body.itemId;
+    // Check if item exists.
+    const item = await Item.findByPk(itemId);
+    if (item === null) {
+        res.statusCode = 404;
+        return res.send("Item not found");
+    }
+    const cartItem = await CartItem.findOne({
+        where: {
+            itemId: itemId,
+            userId: user.id
+        }
+    });
+    // If a cart item already exists increment count
+    if (cartItem !== null) {
+        try {
+            ++cartItem.count;
+            cartItem.save();
+            return res.send({success: true});
+
+        } catch (err) {
+            console.log(err);
+            res.statusCode = 500;
+            return res.send("Internal Server Error");
+        }
+    }
+    // If no cart item exists, create one
+    try {
+        const newCartItem = CartItem.create({
+            itemId: itemId,
+            userId: user.id
+        });
+        if (newCartItem === null)
+            throw Error();
+        return res.send({success: true});
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        return res.send("Internal Server Error");
+    }
+});
+
+
 
 
 
