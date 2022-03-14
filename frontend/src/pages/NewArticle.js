@@ -1,5 +1,6 @@
 import { Add } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   Chip,
@@ -17,51 +18,37 @@ import React, { useEffect, useRef, useState } from "react";
 import { useUserStore } from "../stores/UserStore";
 import getCategories from "../api/Categories";
 
-
 //var categories = [];
 export default function NewArticle() {
+  const [didMount, setDidMount] = useState(true);
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [userStore, userAction] = useUserStore();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [articleName, setArticleName] = useState("");
-  const [description, setDescription] = useState("");
   const [categoryName, setCategory] = useState([]);
-  const [didMount, setDidMount] = useState(true);
 
   //Load categories from DB
   async function loadCategoriesFromDB() {
-    var catArray = await getCategories(userStore.token);
-    const categories = [];
-    catArray.forEach(cat => {
-      categories.push(cat.name);
-    })
-    return categories;
+    return await getCategories(userStore.token);
   }
 
   //call function when page is loaded
-  useEffect(async() => {
-      if(didMount){
+  useEffect(() => {
+    getCategories();
+    async function getCategories() {
+      if (didMount) {
         setCategories(await loadCategoriesFromDB());
         setDidMount(false);
       } else {
         return;
       }
-  }, [categories])
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
-
-  const handleClose = () => {
-    setOpen(false);
-  }
+    }
+  }, [categories]);
 
   /**
    * handles multiple value select add/remove value to React Component State
-   * 
+   *
    * @param {event} event : select change event
    */
   const handleCategoryChange = (event) => {
@@ -74,63 +61,74 @@ export default function NewArticle() {
     );
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     setIsSuccess(false);
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
 
-    var message = {}
-
+    // Text inputs
     const data = new FormData(e.currentTarget);
-    message.itemName = data.get("name");
-    message.itemDescription=data.get("description");
-    message.categoryList=data.get("");
-    setCategory([]);
-    e.currenttarget.reset();
+    const form = e.currentTarget;
+    // init body message
+    let message = {
+      itemName: data.get("name"),
+      itemDescription: data.get("description"),
+      categoryList: categories
+        .filter((category) => categoryName.includes(category.name))
+        .map((category) => category.id),
+    };
 
-    const genericErrorMessage = "Etwas ist schief gelaufen, versuchen Sie es erneut."
+    const genericErrorMessage =
+      "Etwas ist schief gelaufen, versuchen Sie es erneut.";
 
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/newitem", {
       method: "POST",
       credentials: "include",
-      headers: {"Content-Type": "application/json",
-      Authorization: `Bearer ${userStore.token}`},
-      body: JSON.stringify(message)
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userStore.token}`,
+      },
+      body: JSON.stringify(message),
     })
-
-    .then(async response => {
-      setIsSubmitting(false);
-      if (!response.ok) {
-        if (response.status === 400) {
-          setError("Artikelname fehlt");
-        } else if (response.status === 404) {
-          setError("Kategorie nicht gefunden");
-        } else if (response.status === 500) {
-          setError(genericErrorMessage);
-          const data = await response.json();
-          if (data.message) setError(data.nessafe || genericErrorMessage);
+      .then(async (response) => {
+        setIsSubmitting(false);
+        if (!response.ok) {
+          if (response.status === 400) {
+            setError("Artikelname fehlt");
+          } else if (response.status === 404) {
+            setError("Kategorie nicht gefunden");
+          } else if (response.status === 500) {
+            setError(genericErrorMessage);
+            const data = await response.json();
+            if (data.message) setError(data.nessafe || genericErrorMessage);
+          } else {
+            setError(genericErrorMessage);
+          }
         } else {
-          setError(genericErrorMessage);
+          setIsSuccess(true);
+
+          // reset input boxes
+          setCategory([]);
+          form.reset();
         }
-      } else {
-        setIsSuccess(true);
-      }
-    })
-    .catch(error => {
-      setIsSubmitting(false);
-      setError(genericErrorMessage);
-    })
-  }
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        setError(genericErrorMessage);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="md">
+      {error&&<Alert severity="error">{error}</Alert>}
       <CssBaseline />
       <Typography variant="h2" component="h1">
         Artikel hinzufügen
       </Typography>
       <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
+          disabled={isSubmitting}
           margin="normal"
           required
           fullWidth
@@ -138,32 +136,33 @@ export default function NewArticle() {
           name="name"
           autoFocus
         />
-        <FormControl fullWidth margin="normal">
+        <FormControl disabled={isSubmitting} fullWidth margin="normal">
           <InputLabel>Kategorie</InputLabel>
           <Select
-            labelId="categorys"
-            name="categorys"
-            id="categorys"
+            labelId="categories"
+            name="categories"
+            id="categories"
             multiple
             value={categoryName}
             onChange={handleCategoryChange}
-            input={<OutlinedInput id="select-categorys" label="Kategorien" />}
+            input={<OutlinedInput id="select-catagories" label="Kategorien" />}
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip color="secondary" key={value} label={value} />
+                {selected.map((category) => (
+                  <Chip color="primary" key={category} label={category} />
                 ))}
               </Box>
             )}
           >
-            {categories.map((name) => (
-              <MenuItem key={name} value={name}>
+            {categories.map(({ id, name }) => (
+              <MenuItem key={name} value={name} itemID={id}>
                 {name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <TextField
+          disabled={isSubmitting}
           margin="normal"
           required
           fullWidth
@@ -174,11 +173,11 @@ export default function NewArticle() {
           minRows={5}
         />
         <Button
+          disabled={isSubmitting}
           variant="contained"
           type="submit"
           startIcon={<Add />}
-          sx={{ float: "right", mt: 3}}
-          onClick={loadCategoriesFromDB}
+          sx={{ float: "right", mt: 3 }}
         >
           Hinzufügen
         </Button>

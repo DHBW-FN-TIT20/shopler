@@ -4,6 +4,7 @@ import CheckBoxes from "../img/Checking-boxes.svg";
 import AboutUs from "../img/About-Us.svg";
 import Tasks from "../img/Tasks.svg";
 import Logo from "../img/logo.svg";
+import { Link } from "react-router-dom";
 
 const styles = {
   Headline: {
@@ -20,7 +21,7 @@ const styles = {
   CenteredContent: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   Stepper: {
     paddingTop: "10vh",
@@ -38,7 +39,13 @@ export default function Home() {
             Einkaufen hat sich noch nie so einfach gestaltet. Dein Begleiter
             durch den ganzen Tag. Vergessen ist gestern.
           </Typography>
-          <Button variant="contained">Los gehts</Button>
+          <Button
+            component={Link}
+            to={{ pathname: "shop" }}
+            variant="contained"
+          >
+            Los gehts
+          </Button>
         </Grid>
         <Grid
           item
