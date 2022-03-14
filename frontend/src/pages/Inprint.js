@@ -28,7 +28,7 @@ export default function Inprint() {
   return (
     <Container>
       <Container style={styles.Container} className="FirstView">
-        <Container maxWidth="55%" component={Paper} variant={"outlined"} elevation={3} style={styles.TextField}>
+        <Container maxWidth="55%" component={Paper} variant={"outlined"} style={styles.TextField}>
             <img src={Logo} alt="logo" width={"40%"} style={{display: "block", margin: "auto"}} />
           <Typography textAlign={"center"} variant="h2">
             Impressum

@@ -33,112 +33,7 @@ const cards = [
     id: 12,
     name: "Apple",
     description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 3,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse. asd asd asd asd asd as d as   asd as d asd",
-  },
-  {
-    id: 5,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
-  {
-    id: 12,
-    name: "Apple",
-    description: "This is healthy. C it's Gemuse.",
-  },
+  }
 ];
 
 const MaxDescriptionLength = 50;
@@ -152,7 +47,8 @@ export default function Cart() {
           CheckedItems.find((item) => item.id === event.target.id),
           1
         );
-
+    
+  
   return (
     <Container maxWidth="md">
       <Typography component="h1" variant="h2">
