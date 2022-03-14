@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 
+// main color theme, overrides default material ui palette
 const MainTheme = createTheme({
   palette: {
     primary: {

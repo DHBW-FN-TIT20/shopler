@@ -14,11 +14,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserStore } from "../stores/UserStore";
 import getCategories from "../api/Categories";
 
-//var categories = [];
 export default function NewArticle() {
   const [didMount, setDidMount] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -26,27 +25,7 @@ export default function NewArticle() {
   const [error, setError] = useState("");
   const [userStore, userAction] = useUserStore();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [categoryName, setCategory] = useState(["Sonstiges"]);
-
-  //call function when page is loaded
-  useEffect(() => {
-    getsCategories();
-
-    //Load categories from DB
-    async function loadCategoriesFromDB() {
-      return await getCategories(userStore.token);
-    }
-    // define async func in func to prevent race conditions
-    async function getsCategories() {
-      if (didMount) {
-        setCategories(await loadCategoriesFromDB());
-        console.log(categories);
-        setDidMount(false);
-      } else {
-        return;
-      }
-    }
-  });
+  const [categoryName, setCategory] = useState([]);
 
   /**
    * handles multiple value select add/remove value to React Component State
@@ -63,15 +42,22 @@ export default function NewArticle() {
     );
   };
 
-  const handleSubmit = async (e) => {
+  /**
+   * handles submit event on form. validates and sends a post request to the epxress server.
+   * 
+   * @param {event} event : form submit event
+   * @returns 
+   */
+  const handleSubmit = async (event) => {
     setIsSuccess(false);
-    e.preventDefault();
+    event.preventDefault();
     setIsSubmitting(true);
     setError("");
 
     // Text inputs
-    const data = new FormData(e.currentTarget);
-    const form = e.currentTarget;
+    const data = new FormData(event.currentTarget);
+    // for submitting 
+    const form = event.currentTarget;
     // init body message
     let message = {
       itemName: data.get("name"),
@@ -84,6 +70,7 @@ export default function NewArticle() {
     const genericErrorMessage =
       "Etwas ist schief gelaufen, versuchen Sie es erneut.";
 
+    // post request to the server
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/newitem", {
       method: "POST",
       credentials: "include",
@@ -121,6 +108,23 @@ export default function NewArticle() {
       });
   };
 
+  //call function when page is loaded
+  useEffect(() => {
+    loadCategories();
+
+    //Load categories from DB
+    async function loadCategoriesFromDB() {
+      return await getCategories(userStore.token);
+    }
+    // define async func in func to prevent race conditions
+    async function loadCategories() {
+      if (didMount) {
+        setDidMount(false);
+        setCategories(await loadCategoriesFromDB());
+      }
+    }
+  });
+
   return (
     <Container component="main" maxWidth="md">
       {error && <Alert severity="error">{error}</Alert>}
@@ -156,11 +160,12 @@ export default function NewArticle() {
               </Box>
             )}
           >
-            {categories.map(({ id, name }) => (
-              <MenuItem key={name} value={name} itemID={id}>
-                {name}
-              </MenuItem>
-            ))}
+            {categories &&
+              categories.map(({ id, name }) => (
+                <MenuItem key={name} value={name} itemID={id}>
+                  {name}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
         <TextField

@@ -43,14 +43,17 @@ const styles = {
 export default function HowToStepper() {
   const [activeStep, setActiveStep] = useState(0);
 
+  // select next step
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  // select step before
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  // select first step
   const handleReset = () => {
     setActiveStep(0);
   };

@@ -1,4 +1,3 @@
-import { Check } from "@mui/icons-material";
 import { Add } from "@mui/icons-material";
 import {
   Autocomplete,
@@ -17,17 +16,8 @@ import { useEffect, useState } from "react";
 import getCategories from "../api/Categories";
 import { useUserStore } from "../stores/UserStore";
 
-const cards = [];
-
-const categoryNames = [
-  "Gemüse",
-  "Obst",
-  "Lebensmittel",
-  "Getränke",
-  "Marmelade",
-  "Test",
-];
 export default function Shop() {
+  // didMount State to allow only one database request
   const [didMountCategories, setDidMountCategories] = useState(true);
   const [didMountItems, setDidMountItems] = useState(true);
   const [items, setItems] = useState([]);
@@ -35,8 +25,13 @@ export default function Shop() {
   const [categoryFilterList, setFilter] = useState([]);
   const [userStore, userAction] = useUserStore();
 
-  const addItemToListWithId = (e, id) => {
-    const button = e.currentTarget;
+  /**
+   * adds item to user cart
+   * 
+   * @param {event} event : click event
+   * @param {number} id : item id
+   */
+  const addItemToListWithId = (event, id) => {
     const message = {
       itemId: id,
     };
@@ -50,7 +45,6 @@ export default function Shop() {
       body: JSON.stringify(message),
     }).then(async (response) => {
       if (!response.ok) {
-        console.log(response.status);
       } else {
       }
     });
@@ -85,29 +79,33 @@ export default function Shop() {
     return true;
   };
 
-  async function loadListFromDatabase(token) {
+  /**
+   * gets all items from user from database as list
+   * 
+   * @param {string} token : user token for authentication
+   * @returns : item list
+   */
+  async function loadItemsFromDB(token) {
     return await fetch(process.env.REACT_APP_API_ENDPOINT + "api/items", {
       method: "GET",
       headers: {
-        Contenttype: "application/json",
+        ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (response) => {
         if (!response.ok) {
-          console.log(response);
           return null;
         }
         const data = await response.json();
         return data;
       })
       .catch((error) => {
-        console.log(error);
         return null;
       });
   }
 
-  // run after render
+  // run after render loads data from database
   useEffect(() => {
     getsCategories();
     getItems();
@@ -115,14 +113,14 @@ export default function Shop() {
     async function loadCategoriesFromDB() {
       return await getCategories(userStore.token);
     }
-    async function loadIt() {
-      return await loadListFromDatabase(userStore.token);
+    async function loadItems() {
+      return await loadItemsFromDB(userStore.token);
     }
 
     async function getItems() {
       if (didMountItems) {
         setDidMountItems(false);
-        setItems(await loadIt());
+        setItems(await loadItems());
       } else {
         return;
       }

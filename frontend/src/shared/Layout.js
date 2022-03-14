@@ -9,7 +9,6 @@ import Navigation from "./Navigation";
 import SignUp from "../pages/SignUp";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
-import Inprint from "../pages/Inprint";
 import Privacy from "../pages/Privacy";
 import { useMediaQuery } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
@@ -17,16 +16,22 @@ import MainTheme from "../theme/MainTheme";
 import { useUserStore } from "../stores/UserStore";
 import Loader from "./Loader";
 import Footer from "./Footer";
+import InPrint from "../pages/InPrint";
 
 export default function Layout() {
+  // global theme
   const theme = useTheme();
+  const [userState, userAction] = useUserStore();
 
+  // checks if screen small for different layout
   const isGreaterThanSmallBreakpoint = useMediaQuery(
     theme.breakpoints.up("sm")
   );
 
-  const [userState, userAction] = useUserStore();
 
+  /**
+   * gets token from local storage to check if user was sign in, if so, refreshes token and validates user
+   */
   const verifyUser = React.useCallback(() => {
     const refreshToken = localStorage.getItem("refreshToken");
     fetch(process.env.REACT_APP_API_ENDPOINT + "users/refreshToken", {
@@ -46,6 +51,7 @@ export default function Layout() {
     });
   }, [userAction]);
 
+  // calls after first render
   React.useEffect(() => {
     verifyUser();
   }, [verifyUser]);
@@ -66,7 +72,7 @@ export default function Layout() {
             overflowX: "hidden",
           }}
         >
-          <Box component="main" sx={{ minHeight: "100vh" }}>
+          <Box component="main" sx={{ minHeight: "80vh" }}>
             {userState.token === null || userState.token ? (
               <Routes>
                 <Route path="" element={<Home />} />
@@ -91,7 +97,7 @@ export default function Layout() {
 
                 <Route path="signin" element={<SignIn />} />
                 <Route path="signup" element={<SignUp />} />
-                <Route path="inprint" element={<Inprint />} />
+                <Route path="inprint" element={<InPrint />} />
                 <Route path="privacy" element={<Privacy />} />
               </Routes>
             ) : (
