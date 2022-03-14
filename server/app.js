@@ -13,7 +13,7 @@ require('./bin/strategies/LocalStrategy');
 require('./bin/strategies/JwtStrategy');
 require('./bin/auth/authenticate')
 
-// Import models
+// import models
 const { database } = require("./bin/db/connect");
 const { User } = require('./models/users');
 const { Item } = require('./models/items');
@@ -21,6 +21,7 @@ const { Category } = require('./models/categories')
 const { List } = require('./models/lists');
 const { CartItem } = require('./models/cartItems');
 
+// import routers
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRoutes');
 const apiRouter = require('./routes/apiRoutes');
@@ -37,7 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize())
 
-
+// setup cors to listen to whitelist
 const whitelist = process.env.WHITELISTED_DOMAINS
 
   ? process.env.WHITELISTED_DOMAINS.split(",")
