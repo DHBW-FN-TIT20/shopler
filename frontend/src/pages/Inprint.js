@@ -24,7 +24,7 @@ const styles = {
   }
 };
 
-export default function StartScreen() {
+export default function Inprint() {
   return (
     <Container>
       <Container style={styles.Container} className="FirstView">

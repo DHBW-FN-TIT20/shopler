@@ -77,7 +77,7 @@ app.use('/api', apiRouter);
 try {
   Item.belongsToMany(Category, {through: 'item_cat'});
   Category.belongsToMany(Item, {through: 'item_cat'});
-  Item.hasMany(CartItem);
+  CartItem.belongsTo(Item);
   Item.belongsTo(User);
   User.hasMany(CartItem);
   database.sync();
