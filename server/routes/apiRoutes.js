@@ -150,8 +150,56 @@ router.post("/addcartitem", verifyUser, async (req, res, next) => {
     }
 });
 
+/**
+ *  Send all Cart Item for the user.
+ */
+router.get("/cartitems", verifyUser, async (req, res, next) => {
+    const user = await req.user;
+    try {
+        // If cart is empty send empty array
+        const count = await CartItem.count();
+        if (count === 0) {
+            return res.send("[]");
+        }
+        // Find all cart items and send them
+        const cartItems = await CartItem.findAll({
+            attributes: ['id', 'count'],
+            include: {
+                model: Item,
+                attributes: ['name']
+            },
+            where: {
+                userId: user.id
+            }
+        });
+        return res.send(JSON.stringify(cartItems));
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        return res.send("Internal Server Errror");
+    }
+})
 
-
+/**
+ * Remove given Cart Item.
+ */
+router.post("/removecartitem", verifyUser, async (req, res, next) => {
+    const user = await req.user;
+    const cartItemId = await req.body.cartItemId;
+    try {
+        // delete cart item
+        const count = await CartItem.destroy({where: {id: cartItemId, userId: user.id}});
+        if (count === 0) {
+            req.statusCode = 404;
+            return req.send("Cart Item not found");
+        }
+        req.send({sucess: true});
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        return res.send("Internal Server Error");
+    }
+});
 
 
 module.exports = router;
