@@ -1,6 +1,9 @@
 const { DataTypes } = require('sequelize');
 const { database } = require('../bin/db/connect');
 
+/**
+ * Database model to store items.
+ */
 const Item = database.define('item', {
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
