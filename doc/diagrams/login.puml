@@ -8,6 +8,7 @@ while (Daten okay?) is (nein))
     :Benutzer bekommt Fehlermeldung;
     :Benutzer gibt Daten erneut ein;
 endwhile
+-> ja;
 :Benutzer wird eingeloggt;
 :Token wird gesetzt;
 :Benutzer wird zu Home weitergeleitet;
