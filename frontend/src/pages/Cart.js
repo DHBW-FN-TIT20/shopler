@@ -125,7 +125,7 @@ export default function Cart() {
                 }
               >
                 <ListItemText>{item.name}</ListItemText>
-                <ListItemText>{count}</ListItemText>
+                <ListItemText sx={{textAlign: "end"}}>{count}</ListItemText>
               </ListItem>
             );
           })}
