@@ -4,8 +4,11 @@ const { Sequelize } = require('sequelize');
  * Initialize the MariaDB database.
  */
 const database = new Sequelize({
-    dialect: 'sqlite',
-    storage: './bin/db/db.sqlite'
+    host: process.env.DB_HOST,
+    dialect: 'mariadb',
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 })
 
 exports.database = database;
