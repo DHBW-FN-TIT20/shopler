@@ -6,13 +6,13 @@
 Shopping has never been so easy. Your companion throughout the day. Forgetting is yesterday.
 </p>
 
-### General
-This Project was created in the context of Web Engineering 1. With Shopler you have quick access to your missing items - whether food, car parts, ...
+## General
+This Project was created as part of Web Engineering 1. With Shopler you have quick access to your missing items - whether food, car parts, ...
 1. create new items
 2. add items to your list
 3. check off articles
 
-### Installation
+## Installation
 Required Software:
 - nodejs
 - npm
@@ -49,3 +49,8 @@ Required Software:
       cd frontend
       npm start
       ```
+
+## Contributors
+- [Dominik](https://github.com/its-DomeE)
+- [KnusperKing](https://github.com/MultiKnacker)
+- [Thibault Rey](https://github.com/Thibse)
