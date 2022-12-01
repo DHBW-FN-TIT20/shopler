@@ -1,0 +1,15 @@
+@startuml first_visit
+
+start
+
+:Benutzer besucht zum ersten Mal die Webseite;
+:Benuzter klickt auf registrieren Link;
+:Benutzer registriert sich;
+
+while (Daten korrekt?) is (nein)
+  :Benutzer wird aufgefordert Daten erneut einzugeben;
+endwhile (ja)
+:Benutzer ist eingeloggt;
+stop
+
+@enduml
