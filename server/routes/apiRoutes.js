@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { verifyUser } = require('./../bin/auth/authenticate');
-const { Category } = require("./../models/categories");
-const { Item } = require("./../models/items");
-const { CartItem } = require("./../models/cartItems");
-const { database } = require('../bin/db/connect');
+const { verifyUser } = require('../src/auth/authenticate');
+const { Category } = require("../models/categories");
+const { Item } = require("../models/items");
+const { CartItem } = require("../models/cartItems");
+const { database } = require('../src/db/connect');
 
 /**
  * Implements route to add a new item to the database.
