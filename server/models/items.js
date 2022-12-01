@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const { database } = require('../bin/db/connect');
+const { database } = require('../src/db/connect');
 
 /**
  * Database model to store items.

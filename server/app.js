@@ -9,15 +9,15 @@ const cors = require("cors");
 require('dotenv').config();
 
 // setup passport
-require('./bin/strategies/LocalStrategy');
-require('./bin/strategies/JwtStrategy');
-require('./bin/auth/authenticate')
+require('./src/strategies/LocalStrategy');
+require('./src/strategies/JwtStrategy');
+require('./src/auth/authenticate')
 
 // import models
-const { database } = require("./bin/db/connect");
+const { database } = require("./src/db/connect");
 const { User } = require('./models/users');
 const { Item } = require('./models/items');
-const { Category } = require('./models/categories')
+const { Category } = require('./models/categories');
 const { CartItem } = require('./models/cartItems');
 
 // import routers
@@ -80,11 +80,10 @@ try {
   CartItem.belongsTo(Item);
   Item.belongsTo(User);
   User.hasMany(CartItem);
-  database.sync();
+  database.sync({force: false});
 } catch (err) {
   console.error(err);
 }
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
