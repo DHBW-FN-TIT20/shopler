@@ -1,4 +1,4 @@
-<p  align="center"> 
+<p  align="center">
   <img src="frontend\src\img\logo.svg">
 </p>
 <h3 align="center">Shopler</h3>
@@ -19,37 +19,53 @@ Required Software:
 - docker & docker-compose
 
 1. Get Repository
-    ```console
-    git clone
+    ```sh
+    $ git clone
     ```
 2. Install dependencies
     - frontend
-      ```console
-      cd frontend
-      npm ci
+      ```sh
+      $ cd frontend
+      $ npm ci
       ```
     - server
-      ```console
-      cd server
-      npm ci
+      ```sh
+      $ cd server
+      $ npm ci
       ```
-3. Start Services
+4. Start Services
     - mariadb
-      ```console
-      docker-compose up
+      ```sh
+      $ docker-compose up
       ```
       (wait till database available)
-    - server
-      ```console
-      cd server
-      npm start
+    - backend (on first run)
+      - create JSON file with categories array. E.g.:
+        ```json
+          {
+            "categories": [
+              "food", 
+              "beverages",
+              "hygiene"
+            ]
+          }
+        ```
+      - run init script  
+        ```sh
+        $ cd server
+        $ npm run init -- path/to/categories.json
+        ```
+    - backend  
+      ```sh
+      $ cd server
+      $ npm start
       ```
-    - frontend
-      ```console
-      cd frontend
-      npm start
-      ```
-
+    - frontend 
+      ```sh
+      $ cd frontend
+      $ npm start
+      ```        
+        
 ## Contributors
 - [Dominik](https://github.com/its-DomeE)
 - [KnusperKing](https://github.com/MultiKnacker)
