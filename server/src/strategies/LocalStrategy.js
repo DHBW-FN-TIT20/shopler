@@ -1,8 +1,8 @@
 const { use } = require('passport');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require("./../../models/users").User;
-const Hash = require("./../../bin/auth/Hash");
+const User = require("../../models/users").User;
+const Hash = require("../auth/Hash");
 
 /**
  * Strategy to serialize user. The user id will be stored in the JWT.

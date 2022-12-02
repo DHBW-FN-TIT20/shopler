@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./../models/users').User;
+const User = require('../models/users').User;
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
 
-const {getToken, getRefreshToken, verifyUser} = require('./../bin/auth/authenticate');
+const {getToken, getRefreshToken, verifyUser} = require('../src/auth/authenticate');
 
 /**
  * Implements route to signup a new user.

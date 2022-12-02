@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+
+// import filestream
+const fs = require('fs');
+
+// Load environment variables
+require('dotenv').config();
+
+// import database and models
+const { database } = require("../src/db/connect");
+const { User } = require('../models/users');
+const { Item } = require('../models/items');
+const { Category } = require('../models/categories');
+const { CartItem } = require('../models/cartItems');
+
+const path = process.argv[2];
+
+initializeDatabase();
+
+/**
+ * Initializes the database.
+ */
+async function initializeDatabase() {
+	try {
+		Item.belongsToMany(Category, {through: 'item_cat'});
+		Category.belongsToMany(Item, {through: 'item_cat'});
+		CartItem.belongsTo(Item);
+		Item.belongsTo(User);
+		User.hasMany(CartItem);
+		await database.sync({force: true});
+		populateDatabase(path);
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+/**
+ * Initialize database with predefined data. (e.g. categories)
+ *
+ * @param {string} filePath Path to a JSON file containing data to populate the database with.
+ */
+async function populateDatabase(filePath) {
+	fs.readFile(filePath, 'utf8', (err, buf) => {
+		if (err) {
+			return console.log(err);
+		}
+		const data = JSON.parse(buf);
+
+		data.categories.forEach(element => {
+			Category.create({name: element});
+		});
+	});
+}
