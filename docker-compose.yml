@@ -13,3 +13,23 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+
+  frontend:
+    build:
+      context: frontend/
+    ports:
+      - '3000:3000'
+    environment:
+      REACT_APP_API_ENDPOINT: 'http://localhost:8081/'
+    depends_on: 
+      - server
+  
+  server:
+    build:
+      context: server/
+    environment:
+      DB_HOST: db
+    ports:
+      - '8081:8081'
+    depends_on:
+      - db
