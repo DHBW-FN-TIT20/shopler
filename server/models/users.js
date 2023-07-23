@@ -25,6 +25,10 @@ const User = database.define('user', {
         set(val) {
             const newToken = JSON.stringify(val);
             this.setDataValue('refreshToken', newToken);
+        },
+        get() {
+            const token = this.getDataValue('refreshToken');
+            return JSON.parse(token);
         }
     }
 }, {
