@@ -9,10 +9,10 @@ services:
       MARIADB_DATABASE: shopster
       MARIADB_USER: shopster
       MARIADB_PASSWORD: fgICCsMrKmrQU4U1
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+    healthcheck:
+      test: healthcheck.sh --connect
+      timeout: 10s
+      retries: 5
 
   frontend:
     build:
@@ -32,4 +32,5 @@ services:
     ports:
       - '8081:8081'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
