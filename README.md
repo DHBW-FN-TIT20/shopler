@@ -34,37 +34,42 @@ Required Software:
       $ npm ci
       ```
 4. Start Services
-    - mariadb
-      ```sh
-      $ docker-compose up
+    - start the whole application with docker containers:
+      ```sh 
+      $ docker compose up
       ```
-      (wait till database available)
-    - backend (on first run)
-      - create JSON file with categories array. E.g.:
-        ```json
-          {
-            "categories": [
-              "food", 
-              "beverages",
-              "hygiene"
-            ]
-          }
+    - only start the database as docker container:
+      - mariadb
+        ```sh
+        $ docker compose up db
         ```
-      - run init script  
+        (wait till database available)
+      - backend (on first run)
+        - create JSON file with categories array. E.g.:
+          ```json
+            {
+              "categories": [
+                "food",
+                "beverages",
+                "hygiene"
+              ]
+            }
+          ```
+        - run init script
+          ```sh
+          $ cd server
+          $ npm run init -- path/to/categories.json
+          ```
+      - backend
         ```sh
         $ cd server
-        $ npm run init -- path/to/categories.json
+        $ npm start
         ```
-    - backend  
-      ```sh
-      $ cd server
-      $ npm start
-      ```
-    - frontend 
-      ```sh
-      $ cd frontend
-      $ npm start
-      ```        
+      - frontend
+        ```sh
+        $ cd frontend
+        $ npm start
+        ```
         
 ## Contributors
 - [Dominik](https://github.com/its-DomeE)

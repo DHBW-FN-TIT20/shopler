@@ -2,14 +2,35 @@ version: '3.1'
 
 services:
   db:
-    image: mariadb
+    image: mariadb:11
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: shopster
       MARIADB_USER: shopster
       MARIADB_PASSWORD: fgICCsMrKmrQU4U1
+    healthcheck:
+      test: healthcheck.sh --connect
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build:
+      context: frontend/
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - '3000:3000'
+    environment:
+      REACT_APP_API_ENDPOINT: 'http://localhost:8081/'
+    depends_on: 
+      - server
+  
+  server:
+    build:
+      context: server/
+    environment:
+      DB_HOST: db
+    ports:
+      - '8081:8081'
+    depends_on:
+      db:
+        condition: service_healthy
